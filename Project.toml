@@ -1,0 +1,4 @@
+[deps]
+Clarabel = "61c947e1-3e6d-4ee4-985a-eec8c727bd6e"
+JuMP = "4076af6c-e467-56ae-b986-b466b2749572"
+TypedPolynomials = "afbbf031-7a57-5f58-a1b9-b774a0fad08d"

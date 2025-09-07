@@ -1,0 +1,111 @@
+\documentclass[12pt]{article}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage[hidelinks]{hyperref}
+\usepackage{enumitem}
+\usepackage{tocloft}
+
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+
+% Page style and numbering
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\fancyhead[L]{\textit{Practical: AI for climate and weather predictions}}
+\fancyhead[R]{\thepage} % Add page number to the right-hand side of the header
+\fancyfoot{}
+
+%% code adapted from proseminar organized by Prof. Dr. Pascal Friederich
+
+%% --------------------------------
+%% | Bibliography                 |
+%% --------------------------------
+
+%% Use biber instead of BibTeX
+\usepackage[
+    citestyle=numeric,
+    backend=biber,
+    style=numeric,
+    url=false, 
+    doi=true,
+]{biblatex}
+\addbibresource{bibliography.bib}
+\setlength{\bibitemsep}{0.5\baselineskip}
+
+%% Package for the tables
+\usepackage{booktabs}
+%%
+
+% align for equations
+\usepackage{amsfonts}
+\usepackage{mathtools}
+
+
+% Configure table of contents
+\renewcommand{\cftsecafterpnum}{\hfill} % Align section page numbers to the right
+\renewcommand{\cftsubsecleader}{\cftdotfill{\cftdotsep}} % Add dots for subsections
+
+
+% Code blocks for Python
+\usepackage{xcolor} % For defining colors
+\usepackage{listings} % For code formatting
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\definecolor{codeblue}{rgb}{0.1, 0.3, 0.7}
+
+\lstdefinestyle{CustomPython}{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{codeblue},
+    stringstyle=\color{codepurple},
+    numberstyle=\tiny\color{codegray},
+    basicstyle=\footnotesize\ttfamily,
+    breaklines=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2,
+    frame=single, % Adds a border around code blocks
+    framerule=0.5pt, % Border thickness
+    rulecolor=\color{gray}, % Border color
+    captionpos=b % Set caption position to bottom
+}
+
+
+\lstset{style=CustomPython}
+
+
+%% ====================================
+%% ====================================
+%% ||                                ||
+%% || Beginning of the main document ||
+%% ||                                ||
+%% ====================================
+%% ====================================
+
+\begin{document}
+
+\input{titlepage}
+\thispagestyle{empty} % Suppress page number on title page
+
+\newpage
+\setcounter{page}{1} % Start Roman numerals from the Abstract page
+\pagenumbering{Roman} % Roman numerals in capital letters for prefatory pages
+
+\input{abstract}
+
+\newpage
+\tableofcontents
+
+\newpage
+\pagenumbering{arabic} % Switch to Arabic numerals for main content
+\input{contents}
+
+\end{document}

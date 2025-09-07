@@ -1,0 +1,166 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%2345678901234567890123456789012345678901234567890123456789012345678901234567890
+%        1         2         3         4         5         6         7         8
+
+%\documentclass[letterpaper, 10 pt, conference]{orbieeeconfpre}  % Comment this line out if you need a4paper
+
+\documentclass[a4paper, 10pt, journal]{KIT-HCR-Report-IEEE}      % Use this line for a4 paper
+%\conference{IEEE Conference for Awesome ORB Research}
+
+\newcommand{\lecturename}{Praktikum: Mathematical and Computational Methods in Robotics \& AI, SS 2025}
+
+% \bibliographystyle{biorob-num}
+\bibliographystyle{orbref-num}
+
+\IEEEoverridecommandlockouts                              % This command is only needed if 
+                                                          % you want to use the \thanks command
+
+\overrideIEEEmargins                                      % Needed to meet printer requirements.
+
+% See the \addtolength command later in the file to balance the column lengths
+% on the last page of the document
+
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{lipsum}
+\usepackage{amsmath}
+
+\title{\LARGE \bf
+Final report  \LaTeX\ template document class*
+}
+
+\author{Guybrush U. Threepwood$^{1}$ and Great Student $^{2}$% <-this % stops a space
+\thanks{*Based on the guidelines published on the \href{http://conf.papercept.net/conferences/support/tex.php}{PaperCept conference manuscript management website}}% <-this % stops a space
+\thanks{$^{1}$Guybrush U. Threepwood is with the Institute for Pirate Sciences, Three-headed Monkey Group, University of  M\^el\'ee Island
+        {\tt\small gthreepwood@har.har-har.mi}}%
+\thanks{$^{2}$Great student is with Karlsruhe Institute of Technology}%
+}
+
+
+\begin{document}
+
+
+
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+
+This demo file is intended to illustrate the \LaTeX\ document class to be used for final report paper in the (pro)seminar based on the style of IEEE publications. 
+
+\end{abstract}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+{\bf Important!} Please note that the \verb!KIT-MT-Praktikum-IEEE.cls! file is to be used within the context of the {\it Praktikum: Movement \& Technology} at KIT only and must not be distributed externally!
+
+%% Figure
+\begin{figure}[h]
+   \centering
+   \includegraphics[width=0.1\textwidth]{fig/knubbi.png}
+   \caption{Example picture - You can use a reasonable number of figures as needed -  there is no exact limitl}
+   \label{fig:knubbi}
+\end{figure}
+
+\subsection{Bibliography styles}
+The \texttt{orbref-num.bst} bibliography style numbers the citations by their order of appearance. Here are two sample references: \cite{Newton1687,Mombaur2009}.
+
+\subsection{Lorem Ipsum}
+\lipsum[1]
+
+
+\section{Section}
+\subsection{Subsection}
+This subsection has two subsubsections.
+
+\subsubsection{Subsubsection 1}
+
+\textbf{Bold text} and \textit{Italicized text}
+
+\subsubsection{Subsubsection 2}
+% This line should not appear in PDF
+\textbf{\textit{Bold and italicized text}} can happen at the same time. The order of bold and italicization doesn't matter. In this sentence, I want to include mathematical expressions: \(\lambda + \gamma - \pi*\alpha*\beta = 42 \pm 0.5 \).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Example section}
+\lipsum[1]
+
+% A simpler equation
+\begin{equation}
+    y = mx + b
+    \label{eqn:linear}
+\end{equation}
+
+% A slightly more complicated equation
+% Need to add \usepackage{amsmath} at the start of this document to use "subequations"
+\begin{subequations}
+    \begin{align}
+        \min_{x(\cdot),u(\cdot)} \quad & \sum_{i=1}^{2} \left( ||q(t_i) - q_{ref}(t_i)||^2 + \int_{{t}_{i-1}}^{{t}_{i}} {\phi(\cdot)dt} \right) \label{ma_ocp_objfunc} \\
+        \textrm{s.t.} \quad & \dot{x}(t) = f_{i}(t, x(t), u(t), p) \quad \textrm{for } t \in T \label{ma_ocp_eom}\\
+         & r_{eq}(x(0), ..., x(T), p) = 0 \label{ma_ocp_req}\\
+         & r_{ineq}(x(0), ..., x(T), p) \geq 0 \label{ma_ocp_rineq}\\
+         & g_{i}(t, x(t), u(t), p) \geq 0 \quad \textrm{for } t \in T \label{ma_ocp_g}\\
+         & T = [t_1, t_2]^T \label{T}
+    \end{align}
+    \label{eqn:ma_ocp}
+\end{subequations}
+
+\subsection{Example subsection}
+\lipsum[2]
+
+%% Table
+\begin{table}[h]
+\caption{Example table.}
+   \begin{tabularx}{0.48\textwidth}{llr}
+   		 \toprule 
+   		 Symbol & \multicolumn{1}{X}{Description} & Value [m] \\
+		 \midrule
+		  $A_x$ & Horizontal coordinate of A$^{*}$ & 0.0745 \\
+		  $A_z$ & Vertical coordinate of A$^{*}$ & 0.2650 \\  \noalign{\smallskip}
+		  
+		  $C_x$ & Horizontal coordinate of C$^{\#}$ & 0.0700 \\
+		  $C_z$ & Vertical coordinate of C$^{\#}$ & 0.1000 \\
+		  $D_x$ & Horizontal coordinate of D$^{\dag}$ & 0.0602 \\
+		  $D_z$ & Vertical coordinate of D$^{\dag}$ & 0.0860 \\
+		 \bottomrule
+   \end{tabularx}  \label{tab:initmodel}
+\end{table}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Example section title}
+\lipsum[1]
+
+\begin{enumerate}
+    \item This is the first numbered line with enumerate
+    \item This is the second numbered line with enumerate
+\end{enumerate}
+
+\begin{itemize}
+    \item This is the first line with itemize
+    \item This is the second line with itemize
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Another example for a section title}
+
+I would like to test this citation to see if the year shows up in the References section \cite{test}.
+
+\lipsum[2]
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Conclusions and Outlook}
+
+\lipsum[2]
+
+% \bibliography{./mybibfile}
+\bibliography{mybibfile}
+
+\end{document}

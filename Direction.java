@@ -1,102 +1,81 @@
-package edu.kit.kastel.model;
+/*
+ * Copyright (c) 2024, KASTEL. All rights reserved.
+ */
+
+package edu.kit.kastel.dotsandboxes.logic;
 
 /**
- * Describes the four cardinal directions in 2D space:
- * - up (i.e. north)
- * - down (i.e. south)
- * - left (i.e. west)
- * - right (i.e. east)
+ * The directions on the board.
  *
  * @author Programmieren-Team
  */
 public enum Direction {
 
     /**
-     * The direction up (i.e. north), with the unit vector (0,-1).
+     * The direction upwards.
      */
-    UP(new Vector2D(0, -1), "up"),
-
+    UP(0, 1),
     /**
-     * The direction down (i.e. south), with the unit vector (0,1).
+     * The direction downwards.
      */
-    DOWN(new Vector2D(0, 1), "down"),
-
+    DOWN(0, -1),
     /**
-     * The direction left (i.e. west), with the unit vector (-1,0).
+     * The direction to the left.
      */
-    LEFT(new Vector2D(-1, 0), "left"),
-
+    LEFT(-1, 0),
     /**
-     * The direction right (i.e. east), with the unit vector (1,0).
+     * The direction to the right.
      */
-    RIGHT(new Vector2D(1, 0), "right");
+    RIGHT(1, 0);
+    
+    private final int columnOffset;
+    private final int rowOffset;
 
-    private static final String ERROR_NOT_FOUND = "No corresponding Direction2D found for: '%s'";
-
-    private final String representation;
-    private final Vector2D unitVector;
-
-    /**
-     * Constructs a new direction.
-     *
-     * @param unitVector The unit vector
-     * @param representation The String representation
-     */
-    Direction(Vector2D unitVector, String representation) {
-        this.unitVector = unitVector;
-        this.representation = representation;
+    Direction(int columnOffset, int rowOffset) {
+        this.columnOffset = columnOffset;
+        this.rowOffset = rowOffset;
     }
 
     /**
-     * Returns the unit vector of this direction.
-     * <p>
-     * The unit vector of a direction is the vector that when added to a position
-     * results in a new position exactly one unit of measurement away in the
-     * direction of this direction.
-     * <p>
-     * The origin (0,0) is the upper left corner and the ordinate axis is oriented
-     * downwards.
-     *
-     * @return the unit vector of this direction
+     * Returns the offset in a column when apllying this direction.
+     * @return the offset in a column
      */
-    public Vector2D getUnitVector() {
-        return this.unitVector;
-    }
-
-    @Override
-    public String toString() {
-        return this.representation;
+    public int getColumnOffset() {
+        return columnOffset;
     }
 
     /**
-     * Returns the direction represented by the given {@code vector}.
-     *
-     * @param vector the vector
-     * @throws IllegalArgumentException if the {@code vector} does not match
-     * @return the matching direction
+     * Returns the offset in a row when applying this direction.
+     * @return the offset in a row
      */
-    public static Direction fromUnitVector(Vector2D vector) {
-        for (Direction direction : Direction.values()) {
-            if (direction.getUnitVector().equals(vector)) {
+    public int getRowOffset() {
+        return rowOffset;
+    }
+
+    /**
+     * Returns the value considered to be the opposite direction of this value.
+     * @return the opposite direction
+     */
+    public Direction opposite() {
+        return switch (this) {
+            case UP -> DOWN;
+            case DOWN -> UP;
+            case LEFT -> RIGHT;
+            case RIGHT -> LEFT;
+        };
+    }
+
+    /**
+     * Returns the direction value based on its representation.
+     * @param representation the representation of the desired value
+     * @return the direction value, {@code null} if no value suits the given representation
+     */
+    public static Direction fromRepresentation(String representation) {
+        for (Direction direction : values()) {
+            if (direction.toString().toLowerCase().equals(representation)) {
                 return direction;
             }
         }
-        throw new IllegalArgumentException(ERROR_NOT_FOUND.formatted(vector));
-    }
-
-    /**
-     * Returns the direction represented by the given {@code string}.
-     *
-     * @param string the string
-     * @throws IllegalArgumentException if the {@code string} does not match
-     * @return the matching direction
-     */
-    public static Direction fromString(String string) {
-        for (Direction direction : Direction.values()) {
-            if (direction.toString().equals(string)) {
-                return direction;
-            }
-        }
-        throw new IllegalArgumentException(ERROR_NOT_FOUND.formatted(string));
+        return null;
     }
 }

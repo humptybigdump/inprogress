@@ -1,67 +1,100 @@
-/*
- * Copyright (c)  2024  KIT IRS-VSA 
- * Author: Vanessa Del Rio Ortiz
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
+#include <iostream>
+#include <cstdlib>
+#include <stb_image.h>
+#include <stb_image_write.h>
+#include "helper.h"
 
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
+#define VULKAN_HPP_DISPATCH_LOADER_DYNAMIC 1
+#include <vulkan/vulkan.hpp>
+#include <fstream>
+#include <vector>
+#include "initialization.h"
+#include "utils.h"
+#include <GLFW/glfw3.h>
 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
- * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
- * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
- * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
- * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
- * OR OTHER DEALINGS IN THE SOFTWARE.
- */
+#include "project.h"
 
-#include "src/GPIOLed.h"
-#include "src/RGBLight.h"
-#include "src/ServoMotor.h"
-#include "src/HexDecoder.h"
-#include "ti/driverlib/dl_common.h"
+#include "renderdoc.h"
+#include <render.h>
 
+#include "imgui.h"
+#include "imgui_impl_glfw.h"
+#include "imgui_impl_vulkan.h"
 
+int width = 1200;
+int height = 1000;
 
-/* ///////////////////////////////
-* **WELCOME TO THE HARDWARE TASK**
-*  //////////////////////////////
-* Please read the documentation for the setup of
-* - Electronics
-* - Software
-*/
+void render() {
+    AppResources app;
 
-// Function that turns an ASCII string into a vector of hexadecimal numbers
-std::vector<uint8_t> asciiToHex(const std::string& asciiString) {
-    std::vector<uint8_t> hexVector;
-    for (char c : asciiString) {
-        hexVector.push_back(static_cast<uint8_t>(c));
+    initApp(app, true, "Project", width, height);
+
+    // Since our application is now frame-based, renderdoc can find frame delimiters on its own
+    renderdoc::initialize();
+    renderdoc::startCapture();
+
+    Render render(app, 4);
+    render.camera.position = glm::vec3(0.5, 2, 0.9);
+    render.camera.phi = glm::pi<float>();
+    render.camera.theta = 0.4 * glm::pi<float>();
+    render.camera.aspect = (float)width/(float)height;
+    Project project(app, render, 400000, workingDir + "Assets/cubeMonkey.obj");
+    ProjectSolution solution(app, project.data, 192, 192);
+
+    renderdoc::endCapture();
+
+    // Loop until the user closes the window
+    while (true) {
+        double time = glfwGetTime();
+        render.timedelta = time - render.prevtime;
+        render.prevtime = time;
+
+        render.preInput();
+
+        // Poll for and process events
+        glfwPollEvents();
+
+        ImGui_ImplVulkan_NewFrame();
+        ImGui_ImplGlfw_NewFrame();
+        ImGui::NewFrame();
+
+        render.input();
+
+        if (glfwGetKey(app.window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+            glfwSetWindowShouldClose(app.window, 1);
+
+        if (glfwWindowShouldClose(app.window))
+            break;
+
+        // Render here //
+        project.loop(solution);
     }
-    return hexVector;
+
+    app.device.waitIdle();
+
+    solution.cleanup();
+    project.cleanup();
+
+    render.cleanup();
+
+    app.destroy();
 }
 
-int main(void)
-{
-    
-    SYSCFG_DL_init();
-    GPIOLed newLed(LEDIO_PORT,LEDIO_OUT_PIN);
-    HexDecoder newDecoder(PWM_0_INST, PWM_0_INST_CLK_FREQ, LEDIO_PORT, LEDIO_OUT_PIN); 
-    // The PWM_0_INST_CLK_FREQ is the clock frequency for the PWM, which is set in the system data.
-    // The LEDIO_PORT and LEDIO_OUT_PIN are the GPIO port and pin for the LED output.
-
-    // The message will be decoded by the HexDecoder class.
-    std::vector<uint8_t> msg = asciiToHex("ITAT IS FUN!");
-
-    newDecoder.decode(msg); // Decode the message using the HexDecoder class
-    while (1) {
-        __WFI(); // Wait for an interrupt
+int main() {
+    try {
+        render();
     }
+    catch (vk::SystemError& err) {
+        std::cout << "vk::SystemError: " << err.what() << std::endl;
+        exit(-1);
+    }
+    catch (std::exception& err) {
+        std::cout << "std::exception: " << err.what() << std::endl;
+        exit(-1);
+    }
+    catch (...) {
+        std::cout << "unknown error/n";
+        exit(-1);
+    }
+    return EXIT_SUCCESS;
 }
-
-

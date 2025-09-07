@@ -1,0 +1,71 @@
+% Beispiel eines Kapitels für die Latex-Vorlage am ETI.
+%--------------------------------------------------------------------
+%
+%   Version: 3.25        (Koma-Skript, documentclass{scrbook})
+%   Datum: 01.06.2018
+%   Autor: Johannes Bier
+%
+%--------------------------------------------------------------------
+
+\chapter{Task 6: Skin and Proximity Effects in the Machine}
+
+Today’s electric machines for e-mobility tend to be smaller and rotate faster to achieve the highest possible power density. The corresponding challenges arising from this must be considered. In this task, we examine a typical challenge associated with high speeds: the skin and proximity effects.
+
+Due to the high frequency of the current in the winding, the magnetic distribution in the slot is not uniform. Furthermore, the phase resistance is no longer constant at increasing speeds. The uneven magnetic distribution as well as the increase in phase resistance make the thermal aspect of the electric machine more critical, especially at the stator slot opening. To avoid overheating, simulation studies are very important. Based on the reference motor, you will analyze the influence of the skin and proximity effects on the phase resistance in a \gls{FEM} simulation.
+
+\bigskip
+
+Tasks:
+\begin{enumerate}
+	\item Calculate the active phase resistance of the electric machine at DC, $R_{DC}$, analytically. The active winding means the winding within the laminated core. \\
+	\textit{Note: When calculating the phase resistance, consider the appropriate number of parallel groups, series-connected coils, and the corresponding conductor length through the slot.}
+
+	\item Simulate the copper losses at \SI{1}{\per\minute}. Based on the simulation, calculate the corresponding phase resistance $R_{AC}$ at \SI{1}{\per\minute}. Compare the results with the analytically calculated phase resistance $R_{DC}$. What do you observe?
+
+	\item Summarize the calculated phase resistances $R_{AC}$ and the ratio $R_{AC}/R_{DC}$ at \SI{1}{\per\minute}, the corner point, and \SI{15000}{\per\minute}. 
+
+	\item Show the time courses of the losses in the conductors of layer 1 and layer 20 at \SI{15000}{\per\minute}. What do you observe? \\
+	\textit{Note: The conductor "block" in the slot is divided into individual conductors, which are grouped into layers. The arrangement of the layers is shown in \autoref{fig:Leiterschichten}.}
+
+	\item Summarize the loss powers of the conductors in layer 1 and layer 20 at various speeds.
+\end{enumerate}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.6\textwidth]{Leiter_innerhalb_der_Nut.PNG}
+	\caption{Schematic illustration of conductor layers within a slot}
+	\label{fig:Leiterschichten}
+\end{figure}
+
+Please note the following:
+\begin{itemize}
+	\item In this task, only the active part of the windings is calculated analytically and with FEM. The phase resistance in the winding head cannot be determined by 2D \gls{FEM} simulation and is therefore not considered here.
+	\item For the analytical calculation of $R_{DC}$, use the equation:
+	\begin{equation}
+		R = \rho \cdot \frac{l}{A}
+	\end{equation}
+	\addequationtolist{Resistance equation}{eq:Widerstand3}
+
+	\item Specific resistivity of copper at \SI{20}{\celsius}: $\rho = 1.72 \times 10^{-8} \Omega\,m$
+	\item The temperature dependence of the specific resistivity $\rho$ is not considered in this task.
+	\item For the calculation of the phase resistance based on the FEM simulation, use the equation:
+	\begin{equation}
+		P = 3 \cdot R \cdot I^2
+	\end{equation}
+	\addequationtolist{Loss equation}{eq:Widerstand4}
+
+	\item Pay attention to the symmetry of the simulation: only one slot with detailed cross section is modeled in the simulation.
+	\item Refer to the winding scheme in the script. Consider a reasonable parallel and series connection of the winding. Optionally, compare with the winding scheme in \cite{DoppelbauerHEF}.
+\end{itemize}
+
+\newpage
+
+\section{Analytical calculation of the DC phase resistance}
+
+\section{Simulated copper losses @ \SI{1}{\per\minute} and comparison to analytical calculations}
+
+\section{AC phase resistance and the AC/DC resistance ratio @ \SI{1}{\per\minute}, the corner point, and \SI{15000}{\per\minute}}
+
+\section{Transient losses in layer 1 and layer 20 conductors @ \SI{15000}{\per\minute}}
+
+\section{Layer 1 and layer 20 copper losses @ \SI{1}{\per\minute}, the corner point, and \SI{15000}{\per\minute}}

@@ -1,0 +1,39 @@
+% Definition einiger Befehle/Abkürzungen zur Latex-Vorlage am ETI.
+%--------------------------------------------------------------------
+%
+%   Version: 3.25        (Koma-Skript, documentclass{scrbook})
+%   Datum: 01.06.2018
+%   Autor: Johannes Bier
+%
+%--------------------------------------------------------------------
+
+% "def" überm Gleichheitszeichen
+\newcommand {\eqdef}{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny\sffamily def}}}{=}}}
+
+% Ausrufezeichen überm Gleichheitszeichen      
+\newcommand {\eqexcl}{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\small\sffamily !}}}{=}}}
+
+% Ausrufezeichen überm "Größer-Gleich"-Zeichen   
+\newcommand {\geqexcl}{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\small\sffamily !}}}{\geq}}}
+
+% Ausrufezeichen überm "Größer-Gleich"-Zeichen   
+\newcommand {\leexcl}{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\small\sffamily !}}}{<}}}
+
+% j
+\newcommand{\ju}{{\mathrm{j}\mkern1mu}}
+% c phi
+\newcommand{\cphi}{c \Phi}
+
+% \abs und \norm
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}
+\DeclarePairedDelimiter\norm{\lVert}{\rVert}
+
+% \Re und \Im
+\let\Re\undefined
+\let\Im\undefined
+\DeclarePairedDelimiter\braces{\lbrace}{\rbrace}
+\newcommand{\Re}[1]{\operatorname{Re}\braces*{#1}}
+\newcommand{\Im}[1]{\operatorname{Im}\braces*{#1}}
+
+% Trennen von unbekannten Wörtern
+\hyphenation{Lja-pu-now}

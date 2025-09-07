@@ -1,0 +1,36 @@
+\chapter*{Notes and Tips for the Report}
+\addcontentsline{toc}{chapter}{Notes and Tips for the Report}
+
+\section*{Editing and Compilation}
+\begin{itemize}
+    \item Edit text as in a normal editor. Avoid changing LaTeX commands (starting with \verb|\|).
+    \item Use \verb|%| to add comments; they don’t appear in the PDF.
+    \item Compile via Overleaf (auto) or locally (e.g., TeXstudio or VS Code with LaTeX plugin).
+\end{itemize}
+
+\section*{General Tips}
+\begin{itemize}
+    \item Avoid special characters (e.g., umlauts) in section titles unless properly supported.
+    \item Use \verb|\includegraphics| to insert images (place files in \texttt{Bilder/}).
+    \item Inline math: \verb|$...$|; equations: \verb|\[...\]| or \verb|equation| environment.
+    \item Reference glossary terms via \verb|\gls{#}|; refer to figures/equations with \verb|\autoref{#}|.
+    \item Structure with \verb|\section|, \verb|\subsection|, etc.
+\end{itemize}
+
+\section*{Working on the Tasks}
+\begin{itemize}
+    \item Use screenshots from Excel, Ansys Maxwell, or Matlab as needed.
+    \item Code may be added to the \verb|Quelltext/| folder and referenced in the report.
+    \item Enter your answers after each task directly in \verb|Task_#.tex|.
+\end{itemize}
+
+\section*{Before Submission}
+\begin{itemize}
+    \item Delete this chapter before submitting.
+    \item Check that all figures, formulas, and references are correct and numbered.
+    \item Fill in your name and matriculation number in the required fields in \verb|Main.tex|.
+    \item Ensure the document compiles without errors. Warnings may in many cases be unproblematic, but read through the output log to double check if anything major is wrong with the final document.
+\end{itemize}
+
+
+

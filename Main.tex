@@ -1,0 +1,58 @@
+% !TeX document-id = {ad6c77a8-c5bc-489d-820f-10729ba417a2}
+% Vorlage der Hauptdatei für Studien- und Diplomarbeiten am ETI.
+%--------------------------------------------------------------------
+%
+%   Version: 3.25        (Koma-Skript, documentclass{scrbook})
+%   Datum: 01.06.2018
+%   Autor: Johannes Bier
+%   Vorlagenversion: 1.2
+%
+%--------------------------------------------------------------------
+
+\input{_MasterFiles/Preamble}
+\input{_MasterFiles/newcommands}
+
+\newcommand\AuthorName{Vorname Name} % Name variable carried over to Titelseite_Name.tex
+\newcommand\Matrikelnr{XXXX} % Matriculation number variable carried over to Titelseite_Name.tex
+
+\begin{document}
+
+	\frontmatter
+    \begin{spacing}{1}
+    	\include{_MasterFiles/Titelseite_Name} 
+    	\include{_MasterFiles/Hinweise_und_Infos} % Remove before submitting
+    	\tableofcontents
+    	
+    	\null\newpage
+    	\thispagestyle{empty}
+    	\newpage
+    	\cleardoublepage
+    	\printglossary[type=\acronymtype,style=long,title={List of Abbreviations}]
+    	
+    	\null\newpage
+    	\thispagestyle{empty}
+    	\newpage
+    	\cleardoublepage
+    	\printglossary[type=symbolslist,style=long,title={List of Symbols}]
+    \end{spacing}
+    \listofequations
+        \clearpage   
+    \listoffigures                              % Abbildungsverzeichnis
+        \clearpage
+    \listoftables                               % Tabellenverzeichnis
+        \clearpage
+    %\lstlistoflistings							% Quellcodeverzeichnis
+    
+	\mainmatter
+	\include{Task_1} % Solution text here!
+	\include{Task_2} % Solution text here!
+	\include{Task_3} % Solution text here!
+	\include{Task_4} % Solution text here!
+	\include{Task_5} % Solution text here!
+	\include{Task_6} % Solution text here!
+	\include{Task_7} % Solution text here!
+	\include{Task_8} % Solution text here!
+	
+    \include{Anhang}
+
+\end{document}

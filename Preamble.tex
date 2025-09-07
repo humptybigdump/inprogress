@@ -1,0 +1,291 @@
+% Konfiguration von TexStudio
+% !TeX spellcheck = de_DE
+% !TeX encoding = utf8
+% !TeX TXS-program:compile = txs:///pdflatex | txs:///makeglossaries
+% !TeX TXS-program:bibliography = txs:///biber
+
+% Vorspann für Studien-und Diplomarbeiten am ETI.
+\documentclass[fontsize=12pt, oneside, paper=a4, english, bibliography=totoc, listof=totoc, headinclude, headsepline, parskip=half, BCOR=15mm, DIV=18, numbers=noenddot]{scrbook}
+
+%--------------------------------------------------------------------
+%  Workarounds
+%--------------------------------------------------------------------
+
+\usepackage[listings=false]{scrhack}
+
+%####################################################################
+%	Einbindung von Style-Files	
+%####################################################################
+%   Sprachbesonderheiten
+%--------------------------------------------------------------------
+
+% Das Babel-Paket ermöglicht die Einbindung mehrerer länderspezifischer Besonderheiten.
+\RequirePackage[english]{babel}
+
+% Direkte Eingabe von Umlauten mit UTF8
+% erlaubt die direkte Eingabe aller UTF-8 Zeichen
+\RequirePackage[utf8]{inputenc}
+
+% namsu.de: Das lmodern (= Latin Modern) Paket verändert die verwendete Schriftart. Der Hauptunterschied ist die Darstellung der Schrift innerhalb von pdf Dateien, während diese bei der Verwendung der normalen Standard Schriftart von Latex - Computer Modern - doch recht pixelige auf den Betrachter wirkt, erscheint der Text der mit Latin Modern als Schriftart geschrieben worden ist doch um einiges flüßiger. Da die überwiegende Anzahl der Dokumenten die mit Latex erstellt vom Dateityp her ein pdf sind sollte anstelle der bisherigen Standardschrift die Schriftart Latin Modern verwendetet werden. Der nachfolgende Text wurde einmal mit der Standardschrift und dann mit Latin Modern ausgegeben. 
+\usepackage{lmodern}
+
+%--------------------------------------------------------------------
+%   Seitenlayout
+%--------------------------------------------------------------------
+
+% KOMA-Skript-kompatible Kopf-und Fußzeilenverwaltung
+\usepackage{scrlayer-scrpage}
+
+% saubere Verwendung von 1.5-fachem Zeilenabstand
+\usepackage{setspace}
+\onehalfspacing
+% Seitenformat neu berechnen mit BCOR=current, DIV=last; siehe Option in \documentclass
+\typearea[current]{last}
+
+% nur mit KOMA-Skript: Kapitelanfangsseiten ohne Seitenzahl
+\renewcommand*{\chapterpagestyle}{empty}
+
+% Verhalten der Kopf- und Fußzeile
+\pagestyle{scrheadings}
+\clearpairofpagestyles
+\ihead{\headmark}
+\ohead{\pagemark}
+
+% Für das Layout der Titelseite notwendig
+\usepackage[absolute]{textpos}
+\setlength{\TPHorizModule}{1mm}
+\setlength{\TPVertModule}{1mm}
+
+%--------------------------------------------------------------------
+%   Grafiken einbinden
+%--------------------------------------------------------------------
+
+% Paket zur Einbindung von Grafiken in Latex
+\usepackage{graphicx}
+
+% Bilder werden im "Bilder"-Ordner gesucht
+\graphicspath{{Bilder/}}
+
+\usepackage{float}
+
+% psfrag erlaubt das Ersetzen von Text in eps-Grafiken durch
+% LaTeX-Schrift. Siehe auch http://www.tat.physik.uni-tuebingen.de/~vogel/fragmaster/main.html.de
+\usepackage{psfrag}
+
+% picins ermöglicht die Integration von Bildern in Text. Siehe auch "GrafikenEinbindenUndPfadFestlegen_uvm.pdf" 
+% picins wurde abgekündigt, bzw. lässt nicht mehr updaten/downloaden! daher auskommentiert
+%\usepackage{picins}				
+
+% floatflt ermöglicht das Umfließen einer Grafik oder Tabelle mit normalem Text
+\usepackage{floatflt}
+
+% rotating ermöglicht die Drehung von Bildern/Objekten. Ein überbreites
+% Bild beispielsweise wird besser um 90° gedreht dargestellt.
+\usepackage{rotating} 
+
+ % ermöglicht Integration von mehreren kleinen Bildern nebeneinander. Siehe auch "GrafikenEinbindenUndPfadFestlegen_uvm.pdf"
+\usepackage{caption}
+\usepackage{subcaption}
+
+\newlength{\twosubht}
+\newsavebox{\twosubbox}
+
+%--------------------------------------------------------------------
+%   Mathematik
+%--------------------------------------------------------------------
+
+% Mathematik-Umgebung (AMS = American Mathematical Society), [fleqn] setzt Formeln linksbündig
+\usepackage[fleqn]{amsmath}
+
+% Einfügen von Mengenzeichen usw.
+\usepackage{amssymb}
+
+% Einfügen von normalem Text in Mathematik-Umgebungen
+\usepackage{amstext}
+
+% Benötigt für eigene paired delimiter
+\usepackage{mathtools}
+
+% SI-Einheiten werden einheitlich, unabhängig von der Umgebung formatiert
+\usepackage[locale=US,detect-all]{siunitx}	
+\DeclareSIUnit\cubicCentiMeter{ccm}
+
+% latexsym stellt 11 Mathematische Zeichen zur Verfügung
+\usepackage{latexsym}
+
+%--------------------------------------------------------------------
+%   Tabellen
+%--------------------------------------------------------------------
+% Farben 
+\usepackage[table,xcdraw]{xcolor}
+
+% damit ist in Tabellen die Zusammenfassung mehrerer Zeilen möglich
+\usepackage{multirow}
+
+% tabularx erlaubt die Vorgabe der abs. Breite einer Tabelle (s.auch \tabular*)
+\usepackage{tabularx}
+% linksbündig mit Breitenangabe
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}} 
+% zentriert mit Breitenangabe
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}} 
+% rechtsbündig mit Breitenangabe
+\newcolumntype{R}[1]{>{\raggedleft\arraybackslash}p{#1}}
+
+\usepackage{booktabs}
+
+
+%--------------------------------------------------------------------
+%   sonstige Pakete
+%--------------------------------------------------------------------
+
+% ermöglicht nummerierte Listen (\begin{enumerate}...), also Aufzählungen
+\usepackage{enumerate}
+\usepackage{enumitem}
+\setlist{noitemsep,topsep=3mm}
+
+\usepackage{listings}
+\usepackage{listingsutf8}
+\lstset{inputencoding=utf8/latin1}
+
+\renewcommand{\lstlistingname}{Source Code}
+\renewcommand{\lstlistlistingname}{\lstlistingname Directory}
+
+% erstelle nicht selectierbaren text
+\usepackage{accsupp}
+\newcommand{\noncopynumber}[1]{
+	\BeginAccSupp{method=escape,ActualText={}}
+	#1
+	\EndAccSupp{}
+}
+
+% define colors for code highliting
+\definecolor{highlightblue}{RGB}{50,50,250}
+\definecolor{commentgreen}{RGB}{34,139,34}
+\definecolor{stringred}{RGB}{128, 5, 10}
+\definecolor{stringpurple}{RGB}{170,55,241}
+
+% define general style
+\lstdefinestyle{defaultStyle}
+{
+	basicstyle=\small,
+	tabsize=2,
+	captionpos=b,
+	frame=lines,
+	breaklines=true,
+	keepspaces=true,
+	showstringspaces=false,
+	% numbering
+	numbers=left,
+	numberstyle={\small\color{black}\noncopynumber}, % zeilennummern nicht markieren/kopieren
+	inputencoding=utf8,
+	extendedchars=true,
+	literate={ä}{{\"a}}1 {ö}{{\"o}}1 {ü}{{\"u}}1 {Ä}{{\"A}}1 {Ö}{{\"O}}1 {Ü}{{\"U}}1 {ß}{{\ss}}1 
+}
+
+% define listings code style for matlab
+\lstdefinestyle{Matlab}{
+	style=defaultStyle,
+	% language related
+	language=Matlab,
+	morekeywords={matlab2tikz},
+	morekeywords=[2]{1}, keywordstyle=[2]{\color{black}},
+	identifierstyle=\color{black},
+	keywordstyle=\color{highlightblue},
+	commentstyle=\color{commentgreen},
+	stringstyle=\color{stringpurple}
+}
+
+% define listings code style for c++
+\lstdefinestyle{cpp}
+{
+	style=defaultStyle,
+	% language related
+	language=C++,
+	keywordstyle=\color{highlightblue},
+	commentstyle=\color{commentgreen},
+	stringstyle=\color{stringred},
+	showstringspaces=false
+}
+
+% define listings code style for latex
+\lstdefinestyle{latex}{
+	style=defaultStyle,
+	tabsize=4,
+	basicstyle=\ttfamily,
+	language=[LaTeX]TeX,
+	keywordstyle=\color{highlightblue},
+	commentstyle=\color{gray},
+	columns=fullflexible,
+	keepspaces=true
+}
+
+% define listings code style for vhdl
+\lstdefinelanguage{VHDL}{
+	morekeywords=[1]{
+		library,use,all,entity,is,port,in,out,end,architecture,of,
+		begin,and,or,Not,downto,ALL
+	},
+	morekeywords=[2]{
+		STD_LOGIC_VECTOR,STD_LOGIC,IEEE,STD_LOGIC_1164,
+		NUMERIC_STD,STD_LOGIC_ARITH,STD_LOGIC_UNSIGNED,std_logic_vector,
+		std_logic
+	},
+	morecomment=[l]{--}
+}
+\lstdefinestyle{vhdl}{
+	style=defaultStyle,
+	language     = VHDL,
+	basicstyle   = \ttfamily,
+	keywordstyle = [1]\color{highlightblue}\bfseries,
+	keywordstyle = [2]\color{black}\bfseries,
+	commentstyle = \color{commentgreen}
+}
+
+%--------------------------------------------------------------------
+%   Verweise und Links
+%--------------------------------------------------------------------
+
+% Literatur
+\usepackage[backend=biber, style=ieee]{biblatex}
+\usepackage{csquotes}
+\addbibresource{Literaturverzeichnis.bib}
+
+% Verlinkt Inhaltsverzeichnis, Kapitel und alle anderen Verweise im pdf-Dokument.
+\usepackage[hidelinks]{hyperref}
+%Links sind im pdf farbig (hier: schwarz, also nicht vom normalen Text zu unterscheiden) 
+\hypersetup{linktocpage=true, colorlinks=true, linkcolor=black, citecolor=black}
+
+% Abkürzungsverzeichnis und Formelverzeichnis
+\usepackage{longtable}
+\usepackage[nomain, nonumberlist, acronym, toc, section=chapter]{glossaries}
+
+% robuster underline command (\uline) für die benutzung in glossaries
+\usepackage[normalem]{ulem}
+
+% Ein eigenes Verzeichnis definieren (Symbolverzeichnis)
+% Das Stichwort- und Abkürzungsverzeichnis wird analog vordefiniert
+% Siehe makeindex Aufrufe - Hier werden die Dateiendungen festgelegt
+\newglossary[slg]{symbolslist}{sym}{sbl}{Symbolverzeichnis}
+\setlength{\glsdescwidth}{0.7\textwidth}
+
+% Define List of equations
+\usepackage{tocbasic}
+
+\DeclareNewTOC[
+    type=equations,
+    types=equations,
+    name=List of Equations,
+    float=false
+]{eq}
+\newcommand{\addequationtolist}[2]{%
+  \addcontentsline{eq}{section}{\protect\numberline{\theequation}#1}%
+  \label{#2}%
+}
+
+% Den Punkt am Ende der Beschreibung deaktivieren
+\renewcommand*{\glspostdescription}{}
+% Stichwort-, Abkürzungs- und Symbolverzeichnis erzeugen
+\makeglossaries
+\usepackage[xindy]{imakeidx}
+\makeindex
+\loadglsentries{glossarentries.tex}

@@ -1,0 +1,64 @@
+% Beispiel eines Kapitels für die Latex-Vorlage am ETI.
+%--------------------------------------------------------------------
+%
+%   Version: 3.25        (Koma-Skript, documentclass{scrbook})
+%   Datum: 01.06.2018
+%   Autor: Johannes Bier
+%
+%--------------------------------------------------------------------
+
+\chapter{Task 5: Investigation of the Machine’s Short-Circuit Behavior}
+
+In a short circuit, the phases of the machine are connected together. This can be implemented, for example, as an active protection mechanism via the power electronics. If there is a fault in the inverter, the machine windings are short-circuited through the power semiconductors, generating a braking torque that safely brings the machine to a stop. 
+
+During a short circuit, currents can become very high temporarily, which may lead to partial demagnetization of the magnets. To prevent this, the machine should be designed so that the currents always remain below the maximum current limit. In the following tasks, the short-circuit behavior of the motor at two operating points (\SI{7000}{\per\minute} and \SI{80}{\per\minute}) is to be analyzed.
+
+\bigskip
+
+Tasks:
+\begin{enumerate}
+	\item Calculate the transients of the d- and q-currents and the braking torque at \SI{7000}{\per\minute}. State the absolute maximum braking torques, the steady-state braking torques, the absolute maximum d/q-currents, and the d/q-currents in steady state during the short circuit.
+	\item Calculate the time courses of the d- and q-currents and braking torques at \SI{80}{\per\minute}. State the braking torques and d/q-currents in steady state during the short circuit.
+	\item Compare the d/q-current profiles at \SI{7000}{\per\minute} and \SI{80}{\per\minute} in steady state. What conclusions can you draw? 
+	\item How do the braking torques differ at \SI{7000}{\per\minute} and \SI{80}{\per\minute} in steady state? What do you observe? 
+\end{enumerate}
+
+\newpage
+
+Please note the following:
+
+\begin{itemize}
+\item In the following figure \ref{abb:Kurzschluss}, the analytically calculated short-circuit currents (\autoref{abb:bild1}) and braking torques (\autoref{abb:bild2}) over speed are shown for a short circuit. These are the steady-state values of current and braking torque for each speed. The analytical calculation assumes that the d/q inductances remain constant over speed, which is not the case in the FEM calculation. 
+\item In order to run the analysis with the provided circuit in Ansys 2025 R1, please ensure that the \textbf{Transient Solver} in HPC and Analysis options is \textbf{disabled}.
+\end{itemize}
+
+\begin{figure}
+	\centering
+	\begin{subfigure}[b]{0.85\textwidth} 
+		\centering
+		\includegraphics[width=\textwidth]{Strom.png}
+		\caption[Steady-state short-circuit currents]{\small Steady-state short-circuit currents}
+		\label{abb:bild1}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.85\textwidth}  
+		\centering 
+		\includegraphics[width=\textwidth]{Drehmoment.png}
+		\caption[Steady-state braking torques]{\small Steady-state braking torques}    
+		\label{abb:bild2}
+	\end{subfigure}
+	\caption{Analytically calculated steady-state short-circuit currents and braking torque over speed}
+	\label{abb:Kurzschluss}
+\end{figure}
+
+\newpage
+
+\section{Short circuit @ \SI{7000}{\per\minute}}
+
+\section{Short circuit @ \SI{80}{\per\minute}}
+
+\section{Steady state d/q-current profiles comparison}
+
+\section{Steady state braking torque comparison}
+
+\newpage

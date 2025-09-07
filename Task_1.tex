@@ -1,0 +1,72 @@
+% Beispiel eines Kapitels für die Latex-Vorlage am ETI.
+%--------------------------------------------------------------------
+%
+%   Version: 3.25        (Koma-Skript, documentclass{scrbook})
+%   Datum: 01.06.2018
+%   Autor: Johannes Bier
+%
+%--------------------------------------------------------------------
+
+\chapter*{Simulation-Based Analysis of a Permanent Magnet Synchronous Machine with Interior Magnets (IPM)}
+\addcontentsline{toc}{chapter}{Simulation-Based Analysis of a Permanent Magnet Synchronous Machine with Interior Magnets (IPM)} 
+\chapter{Task 1: Analysis of the Machine at the Corner Point}
+
+The torque-speed characteristic of an \gls{IPM} is limited by the maximum torque envelope. In the base speed range, the maximum torque is constrained by the maximum allowable current. Within this range, the maximum available torque remains constant. Following the base speed range is the field weakening region, where the maximum torque is limited by the available voltage. Once the maximum possible voltage is reached, the torque can no longer be increased. In the field weakening region, torque decreases quadratically with increasing speed. 
+
+The point where the base speed range transitions into the field weakening range is referred to as the corner point (Also known as Eckpunkt in German). 
+
+\autoref{abb:Maps1} shows the efficiency map of the machine in the torque-speed plane, with the corner point marked. This efficiency map can be obtained, for example, via \gls{FEM} simulation. However, this requires calculating the efficiency for a large number of operating points. 
+
+For simplicity, the following tasks focus solely on the corner point. Various electromagnetic aspects such as torque, magnetic flux density, and loss mechanisms will be analyzed at this point as a representative example.
+
+\bigskip
+
+Tasks:
+\begin{enumerate}
+	\item Calculate the average torque and torque ripple at the corner point.
+	\item Visualize the magnetic flux density distribution of the motor at \SI{0}{\second}.
+	\item Calculate the hysteresis, eddy current, and additional losses.
+	\item Calculate the magnet losses.
+	\item Calculate the efficiency at the corner point.
+\end{enumerate}
+
+\newpage
+
+Please note the following:
+\begin{itemize}
+\item The stator resistance is \gls{sym:statorwiderstand} = \SI{0.0228}{\ohm}.
+\item Only consider losses in the steady-state operating condition.
+\item Bearing losses at the corner point may be assumed to be \SI{10}{\watt}.
+\item For calculating efficiency, refer to \autoref{eq:Wirkungsgradberechnung} and \autoref{eq:Verluste}. Other losses can be neglected.
+\end{itemize}
+
+\begin{equation}
+	\gls{sym:eta}=\frac{\gls{sym:Pel}-\gls{sym:Pv}}{\gls{sym:Pel}} = \frac{\gls{sym:Pmech}}{\gls{sym:Pel}}
+\end{equation}
+\addequationtolist{Efficiency equation}{eq:Wirkungsgradberechnung}
+
+\begin{equation}
+	\gls{sym:Pv}=\gls{sym:Pcu}+\gls{sym:Pfe}+\gls{sym:Pmag}+\gls{sym:Plager}
+\end{equation}
+\addequationtolist{Total losses}{eq:Verluste}
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[width=0.9\textwidth]{Maps_Efficiency.png}
+	\caption{Efficiency map of the analyzed machine}
+	\label{abb:Maps1}
+\end{figure}
+
+\newpage
+
+\section{Average torque and torque ripple at the corner point}
+
+\section{Magnetic flux density distribution of the motor at \SI{0}{\second}}
+
+\section{Hysteresis, eddy current, and additional losses}
+
+\section{Magnet losses}
+
+\section{Efficiency at the corner point}
+
+\newpage

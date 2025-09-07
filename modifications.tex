@@ -1,0 +1,652 @@
+%%%%%%%%%%%%%%%%%%%%%%%
+% Semirounded style and sizes
+%
+
+
+%\usepackage{\templates/semirounded}
+\useinnertheme{rounded}
+
+% uses tabularx below, need to include it
+\usepackage{tabularx}
+% in case of animated slides: hide upcoming content
+\setbeamercovered{transparent}
+
+% define size 
+\usepackage{geometry}
+\geometry{papersize={17.07cm,9.6cm}}
+\setlength{\unitlength}{1mm}
+
+\usepackage[absolute,overlay]{textpos}
+
+\providebool{space_for_face}
+
+\providebool{use_real_footnotesize}
+
+% use shadows in boxes, disabled currently due to bugfix in PGF
+\providebool{use_shadows}
+
+\ifbool{space_for_face}{%
+\setbeamersize{text margin left=6mm,text margin right=48.7mm}%
+}{%
+\setbeamersize{text margin left=6mm,text margin right=6mm}%
+}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%
+% Font size in itemize
+\setbeamerfont{itemize/enumerate body}{size=\normalsize}
+
+\providebool{small_subitems}
+\ifbool{small_subitems}{%
+\setbeamerfont{itemize/enumerate subbody}{size=\small}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\small}
+}{%
+\setbeamerfont{itemize/enumerate subbody}{size=\normalsize}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\normalsize}%
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%
+% keine Navigationsleiste
+%
+\beamertemplatenavigationsymbolsempty    
+
+
+%%%%%%%%%%%%%%%%%%%%%%%
+% anderer Font zur Nutzung des "normalen Latex-Beamer-Fonts"
+%
+%\usepackage{lmodern}
+\usepackage[scaled=.92]{helvet}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%
+% KIT-Farben
+%
+\definecolor{kit-green100}{rgb}{0,.59,.51}
+\definecolor{kit-green70}{rgb}{.3,.71,.65}
+\definecolor{kit-green50}{rgb}{.50,.79,.75}
+\definecolor{kit-green30}{rgb}{.69,.87,.85}
+\definecolor{kit-green15}{rgb}{.85,.93,.93}
+\definecolor{KITgreen}{rgb}{0,.59,.51}
+
+\definecolor{KITpalegreen}{RGB}{130,190,60}
+\colorlet{kit-maigreen100}{KITpalegreen}
+\colorlet{kit-maigreen70}{KITpalegreen!70}
+\colorlet{kit-maigreen50}{KITpalegreen!50}
+\colorlet{kit-maigreen30}{KITpalegreen!30}
+\colorlet{kit-maigreen15}{KITpalegreen!15}
+
+\definecolor{KITblue}{rgb}{.27,.39,.66}
+\definecolor{kit-blue100}{rgb}{.27,.39,.67}
+\definecolor{kit-blue70}{rgb}{.49,.57,.76}
+\definecolor{kit-blue50}{rgb}{.64,.69,.83}
+\definecolor{kit-blue30}{rgb}{.78,.82,.9}
+\definecolor{kit-blue15}{rgb}{.89,.91,.95}
+
+\definecolor{KITyellow}{rgb}{.98,.89,0}
+\definecolor{kit-yellow100}{cmyk}{0,.05,1,0}
+\definecolor{kit-yellow70}{cmyk}{0,.035,.7,0}
+\definecolor{kit-yellow50}{cmyk}{0,.025,.5,0}
+\definecolor{kit-yellow30}{cmyk}{0,.015,.3,0}
+\definecolor{kit-yellow15}{cmyk}{0,.0075,.15,0}
+
+\definecolor{KITorange}{rgb}{.87,.60,.10}
+\definecolor{kit-orange100}{cmyk}{0,.45,1,0}
+\definecolor{kit-orange70}{cmyk}{0,.315,.7,0}
+\definecolor{kit-orange50}{cmyk}{0,.225,.5,0}
+\definecolor{kit-orange30}{cmyk}{0,.135,.3,0}
+\definecolor{kit-orange15}{cmyk}{0,.0675,.15,0}
+
+\definecolor{KITred}{rgb}{.63,.13,.13}
+\definecolor{kit-red100}{cmyk}{.25,1,1,0}
+\definecolor{kit-red70}{cmyk}{.175,.7,.7,0}
+\definecolor{kit-red50}{cmyk}{.125,.5,.5,0}
+\definecolor{kit-red30}{cmyk}{.075,.3,.3,0}
+\definecolor{kit-red15}{cmyk}{.0375,.15,.15,0}
+
+\definecolor{KITpurple}{RGB}{160,0,120}
+\colorlet{kit-purple100}{KITpurple}
+\colorlet{kit-purple70}{KITpurple!70}
+\colorlet{kit-purple50}{KITpurple!50}
+\colorlet{kit-purple30}{KITpurple!30}
+\colorlet{kit-purple15}{KITpurple!15}
+
+\definecolor{KITcyanblue}{RGB}{80,170,230}
+\colorlet{kit-cyanblue100}{KITcyanblue}
+\colorlet{kit-cyanblue70}{KITcyanblue!70}
+\colorlet{kit-cyanblue50}{KITcyanblue!50}
+\colorlet{kit-cyanblue30}{KITcyanblue!30}
+\colorlet{kit-cyanblue15}{KITcyanblue!15}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%    
+% Definition der KIT-Itemize-Umgebung
+%
+\setbeamertemplate{itemize items}
+{
+	
+	\begin{pgfpicture}{0mm}{0mm}{1.5ex}{1.5ex}
+		{\pgfsetcornersarced{\pgfpoint{.3ex}{.3ex}} 
+			\pgfpathmoveto{\pgfpoint{0cm}{1.5ex}} 
+			\pgfpathlineto{\pgfpoint{1.5ex}{1.5ex}}
+			\pgfpathlineto{\pgfpoint{1.5ex}{0cm}}}
+		{\pgfsetcornersarced{\pgfpoint{.3ex}{.3ex}}
+			\pgfpathmoveto{\pgfpoint{1.5ex}{0cm}}
+			\pgfpathlineto{\pgfpointorigin}
+			\pgfpathlineto{\pgfpoint{0cm}{1.5ex}}}
+		\color{kit-green100}
+		\pgfusepath{fill}
+	\end{pgfpicture}%
+}
+
+\setbeamertemplate{enumerate item}{%
+  \usebeamercolor[bg]{item projected}%
+   %\raisebox{1.5pt}{{\color{black}\footnotesize\insertenumlabel}}%
+   \begin{pgfpicture}{0mm}{0mm}{1.5ex}{1.5ex}
+		{\pgfsetcornersarced{\pgfpoint{.3ex}{.3ex}} 
+			\pgfpathmoveto{\pgfpoint{0cm}{1.5ex}} 
+			\pgfpathlineto{\pgfpoint{1.5ex}{1.5ex}}
+			\pgfpathlineto{\pgfpoint{1.5ex}{0cm}}}
+		{\pgfsetcornersarced{\pgfpoint{.3ex}{.3ex}}
+			\pgfpathmoveto{\pgfpoint{1.5ex}{0cm}}
+			\pgfpathlineto{\pgfpointorigin}
+			\pgfpathlineto{\pgfpoint{0cm}{1.5ex}}}
+		\color{kit-green100}
+		\pgfusepath{fill}
+		\color{black}
+     {\pgfputat{\pgfpoint{0.75ex}{0.75ex}}{\pgfbox[center,center]{{\footnotesize\insertenumlabel}}}}
+	\end{pgfpicture}%
+}
+%%%%%%%%%%%%%%%%%%%%%%%%    
+% .... und dieselbe Farbe für alle andere Aufzählungen
+%
+\setbeamercolor{item}{fg=kit-green100}
+
+
+
+
+
+%% ------------------------------
+%% | halbgerundete Beamer-Boxen |
+%% ------------------------------
+\makeatletter
+\renewcommand\beamerboxesrounded[2][]{%
+  \global\let\beamer@firstlineitemizeunskip=\relax%
+  \vbox\bgroup%
+  \setkeys{beamerboxes}{upper=block title,lower=block body,width=\textwidth,shadow=false}%
+  \setkeys{beamerboxes}{#1}%
+  {%
+    \usebeamercolor{\bmb@lower}%
+    \globalcolorstrue%
+    \colorlet{lower.bg}{bg}%
+  }%
+  {%
+    \usebeamercolor{\bmb@upper}%
+    \globalcolorstrue%
+    \colorlet{upper.bg}{bg}%
+  }%
+  %
+  % Typeset head
+  %
+  \vskip4bp
+  \setbox\bmb@box=\hbox{%
+    \begin{minipage}[b]{\bmb@width}%
+      \usebeamercolor[fg]{\bmb@upper}%
+      #2%
+    \end{minipage}}%
+  \ifdim\wd\bmb@box=0pt%
+    \setbox\bmb@box=\hbox{}%
+    \ht\bmb@box=1.5pt%
+    \bmb@prevheight=-4.5pt%
+  \else%
+    \wd\bmb@box=\bmb@width%
+    \bmb@temp=\dp\bmb@box%
+    \ifdim\bmb@temp<1.5pt%
+      \bmb@temp=1.5pt%
+    \fi%
+    \setbox\bmb@box=\hbox{\raise\bmb@temp\hbox{\box\bmb@box}}%
+    \dp\bmb@box=0pt%
+    \bmb@prevheight=\ht\bmb@box%
+  \fi%
+  \bmb@temp=\bmb@width%
+  \bmb@dima=\bmb@temp\advance\bmb@dima by2.2bp%
+  \bmb@dimb=\bmb@temp\advance\bmb@dimb by4bp%
+  \hbox{%
+    \begin{pgfpicture}{0bp}{+-\ht\bmb@box}{0bp}{+-\ht\bmb@box}
+      \ifdim\wd\bmb@box=0pt%
+        \color{lower.bg}%
+      \else%        
+        \color{upper.bg}%
+      \fi%  
+      \pgfpathqmoveto{-4bp}{-1bp}
+      % Adaption for "KIT-Design"
+      \pgfpathlineto{\pgfpoint{-4bp}{3bp}}
+      %\pgfpathqcurveto{-4bp}{1.2bp}{-2.2bp}{3bp}{0bp}{3bp}
+      \pgfpathlineto{\pgfpoint{\bmb@temp}{3bp}}
+      \pgfpathcurveto%
+      {\pgfpoint{\bmb@dima}{3bp}}%
+      {\pgfpoint{\bmb@dimb}{1.2bp}}%
+      {\pgfpoint{\bmb@dimb}{-1bp}}%
+      \bmb@dima=-\ht\bmb@box%
+      \advance\bmb@dima by-2pt%
+      \pgfpathlineto{\pgfpoint{\bmb@dimb}{\bmb@dima}}
+      \pgfpathlineto{\pgfpoint{-4bp}{\bmb@dima}}
+      \pgfusepath{fill}
+    \end{pgfpicture}%
+    \copy\bmb@box%
+  }%
+  \nointerlineskip%
+  \vskip-1pt%
+  \ifdim\wd\bmb@box=0pt%
+  \else%
+  \hbox{%
+    \begin{pgfpicture}{0pt}{0pt}{\bmb@width}{6pt}
+      \bmb@dima=\bmb@width%
+      \advance\bmb@dima by8bp%
+      \pgfpathrectangle{\pgfpoint{-4bp}{-1bp}}{\pgfpoint{\bmb@dima}{8bp}}
+      \pgfusepath{clip}
+      {\pgftransformshift{\pgfpoint{-4bp}{0bp}}\pgftext[left,base]{\pgfuseshading{bmb@transition}}}%
+    \end{pgfpicture}%
+  }%
+  \nointerlineskip%
+  \vskip-0.5pt%
+  \fi%
+  \ifbmb@shadow%
+    \setbox\bmb@boxshadow=\hbox{\pgfuseshading{bmb@shadow}}%
+    \setbox\bmb@boxshadowball=\hbox{\pgfuseshading{bmb@shadowball}}%
+    \setbox\bmb@boxshadowballlarge=\hbox{\pgfuseshading{bmb@shadowballlarge}}%
+  \fi%
+  \setbox\bmb@colorbox=\hbox{{\pgfpicturetrue\pgfsetcolor{lower.bg}}}%
+  \setbox\bmb@box=\hbox\bgroup\begin{minipage}[b]{\bmb@width}%
+    \vskip2pt%
+    \usebeamercolor[fg]{\bmb@lower}%
+    \colorlet{beamerstructure}{upper.bg}%
+    \colorlet{structure}{upper.bg}%
+    %\color{.}%
+  }
+
+\def\endbeamerboxesrounded{%
+  \end{minipage}\egroup%
+  \wd\bmb@box=\bmb@width%
+  \bmb@temp=\dp\bmb@box%
+  \advance\bmb@temp by.5pt%
+  \setbox\bmb@box=\hbox{\raise\bmb@temp\hbox{\box\bmb@box}}%
+  \dp\bmb@box=0pt%
+  \bmb@temp=\wd\bmb@box%
+  \bmb@dima=\bmb@temp\advance\bmb@dima by2.2bp%
+  \bmb@dimb=\bmb@temp\advance\bmb@dimb by4bp%
+  \hbox{%
+    \begin{pgfpicture}{0bp}{0bp}{0bp}{0bp}
+      \ifbmb@shadow%
+      {\pgftransformshift{\pgfpoint{4bp}{-3bp}}\pgftext{\copy\bmb@boxshadowball}}
+      \begin{pgfscope}
+        {%
+        \advance\bmb@temp by-1bp%
+        \pgfpathrectangle{\pgfpoint{\bmb@temp}{-7bp}}{\pgfpoint{9bp}{9bp}}%
+        \pgfusepath{clip}
+        }%
+        {\pgftransformshift{\pgfpoint{\bmb@temp}{1bp}}\pgftext{\box\bmb@boxshadowballlarge}}
+      \end{pgfscope}
+      \begin{pgfscope}
+        \advance\bmb@temp by-4bp%
+        \pgfpathrectangle{\pgfpoint{4bp}{-7bp}}{\pgfpoint{\bmb@temp}{5bp}}
+        \pgfusepath{clip}
+        {\pgftransformshift{\pgfpoint{4bp}{-7bp}}\pgftext[left,base]{\copy\bmb@boxshadow}}%
+      \end{pgfscope}
+      \begin{pgfscope}
+        \advance\bmb@temp by 4bp%
+        \bmb@dima=\ht\bmb@box%
+        \advance\bmb@dima by\bmb@prevheight%
+        \advance\bmb@dima by 4bp%
+        \pgfpathrectangle{\pgfpoint{\bmb@temp}{1bp}}{\pgfpoint{4bp}{\bmb@dima}}
+        \pgfusepath{clip}
+        \advance\bmb@dima by-4bp%
+        {\pgftransformshift{\pgfpoint{\bmb@temp}{\bmb@dima}}\pgftext{\box\bmb@boxshadowball}}
+        \advance\bmb@dima by-1bp%
+        \pgfpathrectangle{\pgfpoint{\bmb@temp}{1bp}}{\pgfpoint{4bp}{\bmb@dima}}
+        \pgfusepath{clip}
+        \advance\bmb@temp by4bp%
+        {\pgftransformshift{\pgfpoint{\bmb@temp}{-3bp}}%
+          \pgftransformrotate{90}%
+          \pgftext[left,base]{\box\bmb@boxshadow}}%
+      \end{pgfscope}
+      \fi%
+      \unhbox\bmb@colorbox%
+      \pgfpathqmoveto{-4bp}{1bp}
+      \pgfpathqcurveto{-4bp}{-1.2bp}{-2.2bp}{-3bp}{0bp}{-3bp}
+      \pgfpathlineto{\pgfpoint{\the\bmb@dimb}{-3bp}}
+      {
+      \bmb@dima=\ht\bmb@box%
+      \pgfpathlineto{\pgfpoint{\bmb@dimb}{\bmb@dima}}
+      \pgfpathlineto{\pgfpoint{-4bp}{\bmb@dima}}
+      \pgfusepath{fill}
+      }
+      \ifbmb@shadow%
+      {
+        \color{black!50!bg}
+        \pgfsetlinewidth{0pt}
+        \pgfpathmoveto{\pgfpoint{\bmb@dimb}{-.5bp}}
+        \bmb@dima=\ht\bmb@box%
+        \advance\bmb@dima by\bmb@prevheight%
+        \advance\bmb@dima by 1bp%
+        \pgfpathlineto{\pgfpoint{\bmb@dimb}{\bmb@dima}}
+        \pgfusepath{stroke}
+        \bmb@temp=\bmb@dima
+        \advance\bmb@dima by 1bp%
+        \color{black!31!bg}
+        \pgfpathmoveto{\pgfpoint{\bmb@dimb}{\bmb@temp}}
+        \pgfpathlineto{\pgfpoint{\bmb@dimb}{\bmb@dima}}
+        \pgfusepath{stroke}
+        \advance\bmb@dima by 1bp%
+        \advance\bmb@temp by 1bp%
+        \color{black!19!bg}
+        \pgfpathmoveto{\pgfpoint{\bmb@dimb}{\bmb@temp}}
+        \pgfpathlineto{\pgfpoint{\bmb@dimb}{\bmb@dima}}
+        \pgfusepath{stroke}
+        \advance\bmb@dima by 1bp%
+        \advance\bmb@temp by 1bp%
+        \color{black!6!bg}
+        \pgfpathmoveto{\pgfpoint{\bmb@dimb}{\bmb@temp}}
+        \pgfpathlineto{\pgfpoint{\bmb@dimb}{\bmb@dima}}
+        \pgfusepath{stroke}
+        \advance\bmb@dima by 1.5bp%
+        \advance\bmb@temp by 1bp%
+        \color{bg}
+        \pgfpathmoveto{\pgfpoint{\bmb@dimb}{\bmb@temp}}
+        \pgfpathlineto{\pgfpoint{\bmb@dimb}{\bmb@dima}}
+        \pgfusepath{stroke}
+      }
+      \fi
+    \end{pgfpicture}%
+    \box\bmb@box%
+  }%
+  \ifbmb@shadow%
+    \vskip4bp minus 2bp%
+  \else%
+    \vskip2bp%
+  \fi%
+  \egroup% of \vbox\bgroup
+}
+\makeatother
+
+%% -------------------------------
+%% | /halbgerundete Beamer-Boxen |
+%% -------------------------------
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%    
+% Footnote, table of contents and bibliography
+
+% TODO Reevaluate necessity of this redefinition? Have a legacy switch to use it still
+\ifbool{use_real_footnotesize}{}{\renewcommand{\footnotesize}{\scriptsize}}
+% Use scriptsize in footnotes as default
+\let\oldfootnote\footnote
+\renewcommand{\footnote}[2][]{\oldfootnote[#1]{\scriptsize#2}}
+
+
+\setlength\footnotesep{5pt}
+
+% footnote mark possessing the same color as the foreground	
+\setbeamercolor{footnote mark}{fg=.}
+
+
+% colors in literature and contents
+\setbeamercolor{bibliography item}{parent=palette primary, fg=black}
+\setbeamercolor*{bibliography entry title}{parent=palette primary, fg=black}
+\setbeamercolor*{bibliography entry author}{parent=palette primary, fg=black}
+\setbeamercolor*{bibliography counter}{parent=palette primary, fg=black}
+
+\setbeamercolor{section in toc}{fg=black}
+\setbeamercolor{section in bib}{fg=black}
+
+\defbeamertemplate{section in toc}{square unnumbered}{%
+	\begin{pgfpicture}{0mm}{0mm}{1.5ex}{1.5ex}
+		{\pgfsetcornersarced{\pgfpoint{.3ex}{.3ex}} 
+			\pgfpathmoveto{\pgfpoint{0cm}{1.5ex}} 
+			\pgfpathlineto{\pgfpoint{1.5ex}{1.5ex}}
+			\pgfpathlineto{\pgfpoint{1.5ex}{0cm}}}
+		{\pgfsetcornersarced{\pgfpoint{.3ex}{.3ex}}
+			\pgfpathmoveto{\pgfpoint{1.5ex}{0cm}}
+			\pgfpathlineto{\pgfpointorigin}
+			\pgfpathlineto{\pgfpoint{0cm}{1.5ex}}}
+		\color{kit-green100}
+		\pgfusepath{fill}
+	\end{pgfpicture}%
+	\kern1.5ex\inserttocsection\par}
+
+\setbeamertemplate{section in toc}[square unnumbered]
+\setbeamertemplate{subsection in toc}[square unnumbered]
+
+
+
+% multiple pages not being numbered automatically
+\setbeamertemplate{frametitle continuation}[from second][\insertcontinuationcountroman]
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%
+%frametitle
+\setbeamertemplate{frametitle}
+{
+	\vspace{2mm} %\hspace*{-4mm}
+	\vbox{\hsize=13.5cm\bfseries\usebeamerfont{frametitle}\textcolor{black}{\LARGE\insertframetitle}}
+	\begin{textblock*}{15mm}(146mm,4mm)
+		\iflanguage{english}{%
+			\includegraphics[width=18mm]{\templates/logos/kitlogo_en_rgb} 
+		}{%
+			\includegraphics[width=18mm]{\templates/logos/kitlogo_de_rgb} 
+		}%
+		
+	\end{textblock*}
+	\vspace{.3cm}
+}
+
+\setbeamertemplate{headline}
+{
+}
+
+
+\usepackage[export]{adjustbox}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%
+%footer
+\providebool{hide_author_in_footer}
+\setbeamercolor{footlinecolor}{fg=kit-green100, bg=kit-green30}
+\setbeamerfont{footline}{size=\scriptsize}
+\setbeamertemplate{footline}
+{
+
+	\ifnum \theframenumber=1
+		% title frame, do nothing
+	
+	\else
+
+		%%%%%%%%%%%%%%
+		% footer consisting of a kit-green line separating slide and footer
+		%%%%%%%%%%%%%%
+		\begin{center}
+		{
+		\color{lightgray}
+		\rule{.975\textwidth}{1.pt}
+		}
+		\end{center}
+	%
+		\vspace{-0.1cm}
+		\hspace{.2cm} 
+	%
+		\begin{tabularx}{\columnwidth}{p{.005\textwidth}p{.535\textwidth}p{.3\textwidth}p{.15\textwidth}}
+			\textcolor{black}{\insertframenumber}
+			&
+			\ifbool{hide_author_in_footer}{}{\textcolor{black}{\insertshortauthor:}}
+			\textcolor{black}{\insertshorttitle}
+			&
+			\hfill
+			\textcolor{black}{Communications Engineering Lab (CEL)}
+			&
+			\includegraphics[scale=0.08, valign=c]{\templates/logos/CEL_logo.pdf}	
+		\end{tabularx}
+		\hspace{.3cm} 
+		\vspace{.2cm}
+	\fi
+}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%
+%title page
+\providebool{cel_on_title}
+\providebool{erc_on_title}
+\providebool{bmbf_on_title}
+\providebool{bmwi_on_title}
+\providebool{dfg_on_title}
+\setbeamertemplate{title page}
+{
+	\setbeamertemplate{footline}{} 
+	
+	\thispagestyle{empty}
+
+	%elements on title page
+	
+	%KIT logo
+	\begin{textblock*}{24mm}(6mm,5mm)
+		\iflanguage{english}{%
+			\includegraphics[width=23mm]{\templates/logos/kitlogo_en_rgb} 
+		}{%
+			\includegraphics[width=23mm]{\templates/logos/kitlogo_de_rgb} 
+		}%
+	\end{textblock*}
+	%CEL logo
+	\newlength{\logooffset}
+	\setlength{\logooffset}{35mm}
+	\ifbool{cel_on_title}{%
+		\begin{textblock*}{20mm}(\logooffset,5mm)
+			\includegraphics[scale=0.18]{\templates/logos/CEL_logo.pdf} 
+		\end{textblock*}%		
+		\addtolength{\logooffset}{20mm}%
+	}{}
+	
+	\ifbool{erc_on_title}{%
+		\begin{textblock*}{30mm}(\logooffset,5mm)
+			\includegraphics[scale=0.1]{\templates/logos/erc_logo.png}
+		\end{textblock*}%
+		\addtolength{\logooffset}{31mm}%
+	}{}
+	
+	\ifbool{dfg_on_title}{%
+		\begin{textblock*}{30mm}(\logooffset,5mm)
+			\includegraphics[scale=0.6]{\templates/logos/dfg_logo.jpg}
+		\end{textblock*}%
+		\addtolength{\logooffset}{55mm}% 
+	}{}
+		
+	
+	\ifbool{bmbf_on_title}{%
+		\begin{textblock*}{20mm}(\logooffset,5mm)
+			\includegraphics[scale=0.06]{\templates/logos/bmbf_logo.png}
+		\end{textblock*}
+		\addtolength{\logooffset}{20mm}
+	}{}
+	
+	\ifbool{bmwi_on_title}{%
+		\begin{textblock*}{20mm}(\logooffset,5mm)
+			\includegraphics[scale=0.067]{\templates/logos/bmwi_logo.png}
+		\end{textblock*}
+		\addtolength{\logooffset}{20mm}
+	}{}
+
+	
+	\ifbool{space_for_face}{
+			%title
+			\begin{textblock*}{120mm}(6mm,25mm)
+				%\begin{beamercolorbox}[wd=118mm,ht=14mm,dp=3mm,left]{white}%
+					\Large\textbf{\inserttitle}
+				%\end{beamercolorbox}
+			\end{textblock*}
+			
+			%subtitle
+			\begin{textblock*}{120mm}(6mm,33mm)
+				\large \textbf{\insertsubtitle}
+			\end{textblock*}
+			
+			%author
+			\begin{textblock*}{120mm}(6mm,45mm)
+				\normalsize\insertauthor%~\textbar~\insertshortdate
+			\end{textblock*}
+		
+		
+			% title image
+			\begin{textblock*}{\paperwidth}(6mm,52mm)
+				\begin{flushleft}
+				\includegraphics[width=116mm]{\templates/logos/schloss_schmal} 
+				\end{flushleft}
+			\end{textblock*}
+		
+			
+			%legal KIT text
+			\begin{textblock*}{80mm}[0,1](6mm,93.5mm)
+				\fontsize{4pt}{6pt}\selectfont
+				\iflanguage{english}{
+					KIT -- The Research University in the Helmholtz Association}
+				{KIT -- Die Forschungsuniversit\"at in der Helmholtz-Gemeinschaft}
+			\end{textblock*}
+			
+			\begin{textblock*}{16mm}(150mm,92mm)
+				\fontsize{8pt}{8pt}\selectfont
+				\bfseries
+				\textcolor{gray}{\href{http://www.kit.edu}{www.kit.edu} }
+			\end{textblock*}
+	}{ % else (space_for_face)		
+			%title
+			\begin{textblock*}{160mm}(6mm,25mm)
+				\Large\textbf{\inserttitle}
+			\end{textblock*}
+			
+			%subtitle
+			\begin{textblock*}{120mm}(6mm,31mm)
+				\normalsize\textbf{\insertsubtitle}
+			\end{textblock*}
+			
+			%author
+			\begin{textblock*}{120mm}(6mm,38mm)
+				\normalsize\insertauthor%~\textbar~\insertshortdate
+			\end{textblock*}
+		
+		
+			% title image
+			\begin{textblock*}{\paperwidth}(1mm,40mm)
+				\begin{center}
+				\includegraphics[width=.95\linewidth]{\templates/logos/schloss_schmal} 
+				\end{center}
+			\end{textblock*}
+		
+			
+			%legal KIT text
+			\begin{textblock*}{80mm}[0,1](6mm,93.5mm)
+				\fontsize{4pt}{6pt}\selectfont
+				\iflanguage{english}{
+					KIT -- The Research University in the Helmholtz Association}
+				{KIT -- Die Forschungsuniversit\"at in der Helmholtz-Gemeinschaft}
+			\end{textblock*}
+			
+			\begin{textblock*}{16mm}(150mm,92mm)
+				\fontsize{8pt}{8pt}\selectfont
+				\bfseries
+				\textcolor{gray}{\href{http://www.kit.edu}{www.kit.edu} }
+			\end{textblock*}
+	}
+	
+}
+
+% set block title colors for theorems
+\setbeamercolor{block title}{use=structure,fg=white,bg=kit-green100}
+\setbeamercolor{block body}{use=structure,fg=black,bg=kit-green15}
+\setbeamerfont{block title}{size=\normalsize}

@@ -1,0 +1,632 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Own commands and macros
+%
+% defining commands and so on, not altering slides design
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Misc commands 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% Schlagwort
+\newcommand\schlagwort[1]{\textbf{\textcolor{kit-green100}{#1}}}
+
+
+% simple implication within math or text
+\def\thus{\relax
+	\ifmmode
+		\implies
+	\else
+		$\implies$
+	\fi}
+
+
+
+% Pointing finger for noting important things
+\newcommand{\mind}{ \hfill { \textbf{\textcolor{KITred}{\bf \HandLeft} } } }
+
+
+% colored small box representing end of a proof
+\def\endofproof{
+	\ifmmode
+		\text{\hfill} \textcolor{KITgreen}{\rule{2mm}{2mm}}
+	\else
+		$\hfill \textcolor{KITgreen}{\rule{2mm}{2mm}}$
+	\fi}
+
+% disabling	visibility of yet-to-be-uncovered text
+\setbeamercovered{invisible}
+
+
+
+
+% colors
+\setbeamercolor{color_lower}{fg=KITblack,bg=kit-green15}
+\setbeamercolor{color_upper}{fg=KITblack,bg=kit-green70}
+\setbeamertemplate{navigation symbols}{}
+
+
+
+%%%%%%%%%%%%%%%%%
+% Basic math
+%%%%%%%%%%%%%%%%%
+
+% definition sign
+\def\defl{:=}
+
+% j and differential calc
+\def\j{{\mathrm{j}}}
+\def \dd{\, {\mathrm{d}}}
+
+% Real part
+\def\real{{\mathrm{Re}}}
+\def\imag{{\mathrm{Im}}}
+
+% Vector notataion
+\newcommand\vek[1]{{\bm{#1}}}
+
+% sinc and rect
+\newcommand\sinc{\,{\mathrm{sinc}}}
+\newcommand\rect{\,{\mathrm{rect}}}
+
+
+% Galois
+\def\F{{\mathds{F}}}
+
+
+% fields
+\def\rz{\ifmmode{\mathds{R}}%
+    \else{\hbox{$\mathds{R}$}}\fi} 
+\def\nz{\ifmmode{\mathbb{N}}%
+    \else{\hbox{$\mathds{N}$}}\fi} 
+\def\gz{\ifmmode{\mathds{Z}}%
+   \else{\hbox{$\mathds{Z}$}}\fi} 
+\def\cz{\ifmmode{\mathds{C}}
+    \else{\hbox{$\mathds{C}$}}\fi}%
+\def\qz{\ifmmode{\mathds{Q}}%
+    \else{\hbox{$\mathds{Q}$}}\fi}%   
+\def\K{\ifmmode{\mathds{K}}%
+    \else{\hbox{$\mathds{K}$}}\fi}%  
+
+
+% Sets as caligraphic letters
+\def\setS{{\mathcal{S}}}
+\def\setP{{\mathcal{P}}}
+\def\setX{{\mathcal{X}}}
+\def\setY{{\mathcal{Y}}}
+\def\setZ{{\mathcal{Z}}}
+\def\setC{{\mathcal{C}}}
+\def\setB{{\mathcal{B}}}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Probability theory
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\Er{\ifmmode{\mathbb{E}}%
+    \else{\hbox{$\mathbb{E}$}}\fi}%  
+    
+\def\V{
+	\ifmmode
+	{\mathrm{V}}
+	\else
+	${\mathrm{V}}$
+	\fi}    
+
+
+\def\PO{\mathcal{P}(\Omega)}
+\def\sigalg{\mathcal{B}}
+
+\def\NO{N_{\Omega}}
+	
+% random variables
+%\newcommand\rv[1]{{\mathsf{#1}}}
+\newcommand\rv[1]{{\uppercase{#1}}}
+
+\def\rvX{\rv{x}}
+\def\rvY{\rv{y}}
+\def\rvZ{\rv{z}}
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%
+% Communications, system theory, and transforms
+%%%%%%%%%%%%%%%%%
+
+
+% Bandpass as Index
+\def\bp{{\mathrm{BP}}}
+
+
+% transform as symbol
+\usepackage{trfsigns}
+
+\def\transform{\; \laplace \;}
+\def\Transform{\; \Laplace \;}
+
+\newcommand{\vTransform}[1][]{\mbox{\setlength{\unitlength}{0.1em}%
+		\begin{picture}(10,20)%
+		\put(3,2){\circle{4}}%
+		\put(3,4){\line(0,1){12}}%
+		\put(3,18){\circle*{4}}%
+		\put(10,7){#1}
+		\end{picture}%
+	}%
+}%
+
+\newcommand{\vtransform}[1][]{\mbox{\setlength{\unitlength}{0.1em}%
+		\begin{picture}(10,20)%
+		\put(3,2){\circle*{4}}%
+		\put(3,4){\line(0,1){12}}%
+		\put(3,18){\circle{4}}%
+		\put(10,7){#1}
+		\end{picture}%
+	}%
+}%     
+
+
+% Hz and seconds
+\newcommand\uHz{\mu{\,\mathrm{Hz}}}
+\newcommand\us{{\mu\,\mathrm{s}}}	
+
+% index for indicating sample time
+\newcommand\samp{{\mathrm{s}}}
+
+% samples per symbol
+\newcommand\sps{{\text{sps}}}
+
+% command for SNR as sans-serif
+\newcommand\snr{{\mathsf{SNR}}}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Boxes and stuff
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+% Command for aligning itemize when using columns; --> add "\AdjustMargins" after \begin{frame}...
+\makeatletter
+\newcommand*{\AdjustMargins}{%
+    \setlength{\beamer@rightmargin}{0em}%
+    \setlength{\beamer@leftmargin}{0em}%
+}
+\makeatother
+
+
+% Colored boxes
+\setbeamercolor{color_lower}{fg=black,bg=kit-green15}
+\setbeamercolor{color_upper}{fg=black,bg=kit-green70}
+
+
+
+% colored box for definition and theorems
+\ifbool{use_shadows}{
+\newcommand\theobox[2]{
+	\begin{center}
+		\begin{beamerboxesrounded}
+			[upper=color_upper,lower=color_lower,shadow=true]
+			{\textcolor{white}{\textbf{#1}}}
+			#2
+		\end{beamerboxesrounded}
+	\end{center}
+}}{
+\newcommand\theobox[2]{
+	\begin{center}
+		\begin{beamerboxesrounded}
+			[upper=color_upper,lower=color_lower,shadow=false]
+			{\textcolor{white}{\textbf{#1}}}
+			#2
+		\end{beamerboxesrounded}
+	\end{center}
+}}
+
+% colored box without title
+\ifbool{use_shadows}{
+\newcommand\notibox[1]{
+	\begin{center}
+	\begin{beamerboxesrounded}
+	[lower=color_lower,shadow=true]{}
+	#1
+	\end{beamerboxesrounded}
+	\end{center}
+}}{
+\newcommand\notibox[1]{
+	\begin{center}
+	\begin{beamerboxesrounded}
+	[lower=color_lower,shadow=false]{}
+	#1
+	\end{beamerboxesrounded}
+	\end{center}
+}}
+
+% Boxed equation 
+\newcommand{\eqbox}[1]{
+	\begin{center}
+		\setlength{\fboxsep}{1mm}
+		\setlength{\fboxrule}{0.3mm}
+		\fcolorbox{kit-green100}{white}
+		%{\parbox{.9\linewidth \fboxsep \fboxrule}{
+		{\parbox{.9\linewidth }{
+			\ifmmode
+				#1
+			\else
+				%\bigskip
+				#1
+				%\bigskip
+			\fi
+		}}	
+	\end{center}
+}
+
+
+% New definition of for a boxed equation 
+\newcommand{\eqboxed}[1]{
+\begin{center}
+\fcolorbox{kit-green100}{white}{
+$#1$
+}
+\end{center}}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Alignment and flow control
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% Get overview whenever calling "\subsection";
+% current section being black, others gray
+
+\providebool{overview_at_subsection}
+\setboolean{overview_at_subsection}{True}
+
+\ifbool{overview_at_subsection}{
+\AtBeginSection[]
+{
+	
+  \begin{frame}[t] 
+	   \frametitle{\ifthenelse{\boolean{EnglishLanguage}}{Overview}{Übersicht}}
+	   \tableofcontents[sectionstyle=show/shaded, subsectionstyle=show/show/shaded,subsubsectionstyle=hide]
+  \end{frame}
+}
+\AtBeginSubsection[]
+{
+  \begin{frame}[t] 
+	   \frametitle{\ifthenelse{\boolean{EnglishLanguage}}{Overview}{Übersicht}}
+	   \tableofcontents[currentsection,currentsubsection,subsubsectionstyle=show/show/hide]
+  \end{frame}
+}
+
+\only<beamer>
+{
+	\AtBeginSubsubsection[]
+	{
+	  \begin{frame}[t] 
+		   \frametitle{\ifthenelse{\boolean{EnglishLanguage}}{Overview}{Übersicht}}
+		   \tableofcontents[currentsection,currentsubsection,subsubsectionstyle=show/shaded/hide]
+	  \end{frame}
+	}
+}
+}{}
+
+
+% Increasing section number
+\makeatletter
+\newcommand{\setnextsection}[1]{%
+	\setcounter{section}{\numexpr#1-1\relax}%
+	\beamer@tocsectionnumber=\numexpr#1-1\relax\space}
+\makeatother
+
+
+% footnote without footnotemark in the text
+\newcommand\nomarkfootnote[1]{%
+  \begingroup
+  \renewcommand\thefootnote{}\footnote{#1}%
+  \addtocounter{footnote}{-1}%
+  \endgroup
+}
+
+
+% Short command for integration of jupyter examples
+\newcommand{\jupyex}[2]
+{
+	\AdjustMargins
+	
+	\begin{columns}[t]
+		\begin{column}{.9\textwidth}
+			\begin{itemize}
+				\item \schlagwort{\ifthenelse{\boolean{EnglishLanguage}}{Example}{Beispiel}:#1} #2
+			\end{itemize}
+		\end{column}
+		\begin{column}{.1\textwidth}
+			\begin{center}
+			\includegraphics[width=.7\textwidth]{\templates/logos/logo_jupyter}
+			\end{center}
+		\end{column}
+	\end{columns}
+}
+\newcommand{\jupyexNew}[2]
+{
+	\AdjustMargins
+	
+	\begin{columns}[t]
+		\begin{column}{.9\textwidth}
+			\begin{itemize}
+				\item \schlagwort{
+					\ifthenelse{\boolean{EnglishLanguage}}{Example}{Beispiel}:\footnote[frame]{\scriptsize \schlagwort{\ifthenelse{\boolean{EnglishLanguage}}{File}{Datei}:} #1}
+				} #2
+			\end{itemize}
+		\end{column}
+		\begin{column}{.1\textwidth}
+			\begin{center}
+				\includegraphics[width=.7\textwidth]{\templates/logos/logo_jupyter}
+			\end{center}
+		\end{column}
+	\end{columns}
+}
+
+
+
+
+
+% ruled Slide für Notizen
+\newcommand*{\titleruledslide}[1]{%
+	\bgroup%
+	%\setbeamertemplate{navigation symbols}{}%
+	%\setbeamercolor{background canvas}{bg=white}%
+	\begin{frame}{#1}%
+		\ifbool{space_for_face}{%
+			\vspace*{1.2ex}\hspace*{-3ex}\begin{tikzpicture}[domain=0:1,scale=3.6]%
+			\draw[very thin,color=white!70!gray,xstep=0.075,ystep=0.075] (0,0) grid (3.3,1.95);%
+			\end{tikzpicture}%
+		}{
+			\vspace*{1.2ex}\hspace*{-3ex}\begin{tikzpicture}[domain=0:1,scale=3.6]%
+			\draw[very thin,color=white!70!gray,xstep=0.075,ystep=0.075] (0,0) grid (4.65,1.95);%
+			\end{tikzpicture}%
+		}
+	\end{frame}%
+	\egroup%
+}
+
+
+
+% Literature as intended
+\setbeamertemplate{bibliography item}[text]
+
+
+\newcommand\FourQuad[4]{%
+	\begin{minipage}[b][.35\textheight][t]{.47\textwidth}#1\end{minipage}\hfill%
+	\begin{minipage}[b][.35\textheight][t]{.47\textwidth}#2\end{minipage}\\[1em]
+	\begin{minipage}[b][.35\textheight][t]{.47\textwidth}#3\end{minipage}\hfill
+	\begin{minipage}[b][.35\textheight][t]{.47\textwidth}#4\end{minipage}%
+}
+
+
+
+%%%%%%%%%%%%%
+% new command to highlight corresponding part of formulae
+%
+% first version is deprecated and replaced by using tikz
+%%%%%%%%%%%%%
+
+%\newcommand{\ifequals}[3]{\ifthenelse{\equal{#1}{#2}}{#3}{}}
+%\newcommand{\case}[2]{#1 #2} % Dummy, so \renewcommand has something to overwrite...
+%\newenvironment{switch}[1]{\renewcommand{\case}{\ifequals{#1}}}{}
+
+%% \highlight[<colour>]{<stuff>}
+%\newcommand{\hi}[2][KITyellow]{
+%	\ifmmode
+%	{
+%		\begin{switch}{#1}
+%		\case{white}
+%			{
+%			\mathchoice%
+%			  {\colorbox{#1}{$\displaystyle#2$}}%
+%			  {\colorbox{#1}{$\textstyle#2$}}%
+%			  {\colorbox{#1}{$\scriptstyle#2$}}%
+%			  {\colorbox{#1}{$\scriptscriptstyle#2$}}
+%			}
+%		\case{KITyellow}
+%			{
+%				 \mathchoice%
+%				  {\colorbox{#1}{$\displaystyle#2$}}%
+%				  {\colorbox{#1}{$\textstyle#2$}}%
+%				  {\colorbox{#1}{$\scriptstyle#2$}}%
+%				  {\colorbox{#1}{$\scriptscriptstyle#2$}}
+%			}%
+%		\case{KITorange}
+%			{
+%				 \mathchoice%
+%				  {\colorbox{#1}{$\displaystyle#2$}}%
+%				  {\colorbox{#1}{$\textstyle#2$}}%
+%				  {\colorbox{#1}{$\scriptstyle#2$}}%
+%				  {\colorbox{#1}{$\scriptscriptstyle#2$}}
+%			}%			
+%		\case{KITred}
+%			{
+%				 \mathchoice%
+%				  {\colorbox{#1}{\textcolor{white}{$\displaystyle#2$}}}%
+%				  {\colorbox{#1}{\textcolor{white}{$\textstyle#2$}}}
+%				  {\colorbox{#1}{\textcolor{white}{$\scriptstyle#2$}}}
+%				  {\colorbox{#1}{\textcolor{white}{$\scriptscriptstyle#2$}}}
+%			}%	
+%		\case{KITblue}
+%			{
+%				 \mathchoice%
+%				  {\colorbox{#1}{\textcolor{white}{$\displaystyle#2$}}}%
+%				  {\colorbox{#1}{\textcolor{white}{$\textstyle#2$}}}
+%				  {\colorbox{#1}{\textcolor{white}{$\scriptstyle#2$}}}
+%				  {\colorbox{#1}{\textcolor{white}{$\scriptscriptstyle#2$}}}
+%			}%
+%		\case{KITgreen}
+%			{
+%				 \mathchoice%
+%				  {\colorbox{#1}{\textcolor{white}{$\displaystyle#2$}}}%
+%				  {\colorbox{#1}{\textcolor{white}{$\textstyle#2$}}}
+%				  {\colorbox{#1}{\textcolor{white}{$\scriptstyle#2$}}}
+%				  {\colorbox{#1}{\textcolor{white}{$\scriptscriptstyle#2$}}}
+%			}%	
+%		\case{KITpurple}
+%			{
+%				 \mathchoice%
+%				  {\colorbox{#1}{\textcolor{white}{$\displaystyle#2$}}}%
+%				  {\colorbox{#1}{\textcolor{white}{$\textstyle#2$}}}
+%				  {\colorbox{#1}{\textcolor{white}{$\scriptstyle#2$}}}
+%				  {\colorbox{#1}{\textcolor{white}{$\scriptscriptstyle#2$}}}
+%			}%	
+%		\case{KITcyan}
+%			{
+%				 \mathchoice%
+%				  {\colorbox{#1}{\textcolor{white}{$\displaystyle#2$}}}%
+%				  {\colorbox{#1}{\textcolor{white}{$\textstyle#2$}}}
+%				  {\colorbox{#1}{\textcolor{white}{$\scriptstyle#2$}}}
+%				  {\colorbox{#1}{\textcolor{white}{$\scriptscriptstyle#2$}}}
+%			}%												
+%		\end{switch}
+%	}
+%	\else	
+%	{
+%	\textcolor{#1}{\textbf #2}
+%	}
+%	\fi
+%	}
+
+
+%%%%%%%%%%%%%
+% version using tikz has disadvantages when externalizing tikz-figures
+% first build pretty slow (approx. 45 mins), generates folder of size > 250 MB
+
+
+% \highlight[<colour>]{<stuff>}
+\newcommand{\hi}[2][KITyellow]{
+	\ifmmode
+	{
+		%\tikz[baseline]{\node[fill=#1!50,anchor=base ]{$#2$};}
+		 \mathchoice%		
+%			{\tikz[baseline]{\node[fill=#1!50,anchor=base ]{$\displaystyle#2$};} }
+%			{\tikz[baseline]{\node[fill=#1!50,anchor=base ]{$\textstyle#2$};} }
+%			{\tikz[baseline]{\node[fill=#1!50,anchor=base ]{$\scriptstyle#2$};} }
+%			{\tikz[baseline]{\node[fill=#1!50,anchor=base ]{$\scriptscriptstyle#2$};} }
+			{\colorbox{#1!50}{\textcolor{black}{$\displaystyle#2$}}}%
+			{\colorbox{#1!50}{\textcolor{black}{$\textstyle#2$}}}
+			{\colorbox{#1!50}{\textcolor{black}{$\scriptstyle#2$}}}
+			{\colorbox{#1!50}{\textcolor{black}{$\scriptscriptstyle#2$}}}
+	}
+	\else
+	{
+		%\textcolor{#1}{\textbf{#2}}
+		{\colorbox{#1!50}{\textcolor{black}{#2}}}
+	}
+	\fi
+	}
+
+	
+% Kommando um Hin- und Herschieben zu verhinden
+\newcommand{\white}[1]{\textcolor{white}{{#1}}}
+
+% footnotetext that is switched off on the slides given by the first argument if used in animations
+\newcommand{\footnotetextoff}[2]{\alt<#1>{\let\thefootnote\relax\footnotetext{~}}{\footnotetext{\scriptsize #2}}}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Pages notes and reference
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\newcommand{\pagesNotes}{
+	\bgroup
+	\begin{frame}[c, shrink]{\ifthenelse{\boolean{EnglishLanguage}}{Notes}{Notizen}}
+		\vspace*{0.2ex}\hspace*{0ex}
+%
+			\begin{tikzpicture}
+			%\draw[lightgray, line width = .0 mm, step=.25] (0,0) grid (18.5,7);
+			[domain=0:1,scale=3.6]%
+			\draw[very thin,color=white!70!gray,xstep=0.075,ystep=0.075] (0,0) grid (4.5,1.95);%
+	
+			\end{tikzpicture}
+%		\end{center}
+	\end{frame}
+	\egroup
+}
+
+
+% Command for showing that some notes will be taken (blackboard, slides,...)
+\newcommand{\notes}{ \hyperlink{Notes}{ \textbf{\textcolor{KITred}{\bf \PencilLeftUp} } } }
+
+
+
+% References on bottom of slide
+\newcommand{\addreference}[2]{%
+{\scriptsize\textcolor{kit-green100}{
+	\begin{tabular}{lp{0.88\columnwidth}}
+	[#1] & #2
+	\end{tabular}}}%
+}
+
+\makeatletter
+\newcommand{\addreferences}{%
+\begin{scriptsize}
+\begin{tabular}{lp{0.88\textwidth}}
+  \@addreferencesi
+}
+\newcommand\@addreferencesi{\@ifnextchar\stopreferences{\@addreferencesend}{\@addreferencesii}}
+
+\newcommand\@addreferencesii[2]{%
+  \textcolor{kit-green100}{[#1]} & \textcolor{kit-green100}{#2} \\
+  \@addreferencesi % restart the recursion
+}
+\newcommand\@addreferencesend[1]{% The argument is \stopimages
+\end{tabular}
+\end{scriptsize}
+}
+\makeatother
+
+% References on the bottom of the current column
+\newcommand{\addreferencecol}[2]{%
+{\scriptsize\textcolor{kit-green100}{
+	\begin{tabular}{lp{0.78\columnwidth}}
+	[#1] & #2
+	\end{tabular}}}%
+}
+
+\makeatletter
+\newcommand{\addreferencescol}{%
+\begin{scriptsize}
+\begin{tabular}{lp{0.78\columnwidth}}
+  \@addreferencescoli
+}
+\newcommand\@addreferencescoli{\@ifnextchar\stopreferences{\@addreferencescolend}{\@addreferencescolii}}
+
+\newcommand\@addreferencescolii[2]{%
+  \textcolor{kit-green100}{[#1]} & \textcolor{kit-green100}{#2} \\
+  \@addreferencescoli % restart the recursion
+}
+\newcommand\@addreferencescolend[1]{% The argument is \stopimages
+\end{tabular}
+\end{scriptsize}
+}
+\makeatother
+
+\newcommand{\citereference}[1]{\textcolor{kit-green100}{\textbf{\scriptsize{[#1]}}}}
+\newcommand{\citereferencewhite}[1]{\textcolor{white}{\textbf{\scriptsize{[#1]}}}}
+
+%\mode<beamer>
+%{
+%\logo{\small \notes}
+%}
+
+

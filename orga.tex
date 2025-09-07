@@ -1,0 +1,56 @@
+\documentclass[10pt, aspectratio=169]{beamer}
+%\documentclass[handout, 10pt, aspectratio=169]{beamer}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%
+% Einbinden der Definitionen, die eine Mischung aus Standard-Beamer und KIT-Style erreichen
+%
+\newcommand{\templates}{templates_kit_2020}
+
+% packages to be included
+\input{\templates/packages.tex}
+
+% modifications to stick to new KIT style
+\input{\templates/modifications.tex}
+
+% marcos used throughout the slides
+\input{\templates/makros_own.tex}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%
+% Titel und Ähnliches
+%
+\title[Wahrscheinlichkeitstheorie -- Organisatorisches]{Wahrscheinlichkeitstheorie -- Organisatorisches}
+
+\author{Holger Jäkel}
+
+\date{ }
+
+\institute{Karlsruhe Institute of Technology (KIT), \\ Communications Engineering Lab (CEL) }
+
+
+%%%%%%%%%%%%%%%%%%%%%%%
+% los geht's...
+% 
+\begin{document}
+
+% change the following line to "ngerman" for German style date and logos
+%\selectlanguage{ngerman}
+\newboolean{EnglishLanguage}
+\setboolean{EnglishLanguage}{False}
+
+
+% Titelseite mit Logos, aber ohne Seitennummer
+\begin{frame}[plain]
+
+\maketitle
+
+\end{frame}
+
+
+% Eigentliche Folien
+\input{tex_files/inhalt.tex}
+
+\end{document}
+	

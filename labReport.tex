@@ -1,0 +1,80 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage{titlesec}
+\titleformat*{\section}{\Large\bfseries\sffamily}
+\titleformat*{\subsection}{\large\bfseries\sffamily}
+
+\usepackage[tmargin=2cm,bmargin=2cm,lmargin=2.5cm,rmargin=2.5cm]{geometry}
+\usepackage{textpos}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{pgf}
+
+\begin{document}
+	
+\graphicspath{{./}{./fig/}}
+
+%-------------------------- Title section -------------------------------------%
+
+% kit logo
+\begin{textblock}{10}[0,0](-0.4,0)
+	\includegraphics[width=.3\textwidth]{KITlogoDE.pdf}
+\end{textblock}
+
+%Institute and Chair
+\begin{textblock}{10}[0,0](2.4,-0.2)
+	\begin{flushright}
+		\large Fakult\"at f\"ur Informatik \par 
+		Institut f\"{u}r Technische Informatik \par
+		Chair for Embedded Systems
+	\end{flushright}
+\end{textblock}
+
+%% Title %%
+\begin{center}
+	\vspace{2.5cm}
+	{\LARGE \sf Lab: Low Power Design and Embedded Systems}
+	\par\vspace{1.0cm}
+	{\huge\bf{\textsf{Lab Report}}}
+	\par\vspace{1.0cm}
+	{\large{Vorname Nachname \par
+		user@student.kit.edu \par
+		0123456 \par}} %Matrikel-Nr.
+	\vspace{0.75cm}
+\end{center}
+
+%------------------------------------------------------------------------------%
+
+
+\begin{abstract}
+Small summary of what the report contains.
+\end{abstract}
+
+
+\section{Introduction}
+Example of one reference \cite{legup}, if needed.
+
+\section{Software for Low Power}
+
+
+\section{Low Power Hardware/Software Co-design}
+
+
+\section{Conclusions}
+Here your briefly summarize your findings.
+
+
+% References
+\begin{thebibliography}{99}
+
+\bibitem{legup}
+Andrew Canis, Jongsok Choi, Mark Aldham, Victor Zhang, Ahmed Kammoona, Jason H. 
+Anderson, Stephen Brown, and Tomasz Czajkowski. 2011. \textit{LegUp: high-level 
+synthesis for FPGA-based processor/accelerator systems}. In Proceedings of the 
+19th ACM/SIGDA international symposium on Field programmable gate arrays (FPGA 
+'11). ACM, New York, NY, USA, 33-36. 
+
+\end{thebibliography}
+
+
+\end{document}

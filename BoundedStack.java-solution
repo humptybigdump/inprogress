@@ -1,0 +1,89 @@
+
+class BoundedStack {
+
+    private final int stack[];
+    private int pos;
+
+    /*@ public invariant stack != null; */
+    /*@ public invariant 0 <= pos <= stack.length; */
+
+    BoundedStack(int capacity) {
+	this.stack = new int[capacity];
+    }
+
+    /*@ public normal_behaviour
+      @  requires pos > 0;
+      @  ensures \result == stack[pos];
+      @  ensures pos == \old(pos) - 1;
+      @  assignable this.pos;
+      @ also
+      @ public exceptional_behaviour
+      @  requires pos == 0;
+      @  signals_only IndexOutOfBoundsException;
+      @  assignable \nothing;
+      @*/
+    int pop() {
+        if(pos == 0) throw new IndexOutOfBoundsException();
+	int res = stack[pos-1];
+	pos --;
+	return res;
+    }
+
+    /*@ public normal_behaviour
+      @  requires pos < stack.length;
+      @  ensures stack[pos-1] == value;
+      @  ensures pos == \old(pos) + 1;
+      @  assignable this.pos, stack[pos];
+      @ also
+      @ public exceptional_behaviour
+      @  requires pos == stack.length;
+      @  signals_only IndexOutOfBoundsException;
+      @*/
+    void push(int value) {
+	stack[pos] = value;
+        pos++;
+    }
+
+    /*@ public normal_behaviour
+      @  ensures \result == pos;
+      @  assignable \strictly_nothing;
+      @*/
+    int size() {
+	return pos;
+    }
+
+    /*@ public normal_behaviour
+      @  ensures \result == stack.length;
+      @  assignable \strictly_nothing;
+      @*/
+    int capacity() {
+	return stack.length;
+    }
+}
+
+class StackClient {
+
+    /*@ public normal_behaviour
+      @   requires \invariant_for(bs);
+      @   ensures true;
+      @*/
+    void test(BoundedStack bs, int v, int w) {
+
+	if(bs.capacity() >= bs.size() + 2) {
+	    bs.push(v);
+	    bs.push(w);
+	    int p1 = bs.pop();
+	    assert p1 == w;
+	    int p2 = bs.pop();
+	    assert p2 == v;
+	} else {
+	    try {
+		bs.push(v);
+		bs.push(w);
+		assert false;
+	    } catch(IndexOutOfBoundsException ex) {
+		// expected!
+	    }
+	}
+    }
+}

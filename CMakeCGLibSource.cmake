@@ -1,0 +1,27 @@
+set(CGLIB_SOURCE_FILES
+	src/core/camera.cpp
+	src/core/gui.cpp
+	src/core/image.cpp
+	src/core/parameters.cpp
+	src/core/stb.cpp
+	src/core/thread_pool.cpp
+	src/core/timer.cpp
+	src/imgui/imgui.cpp
+	src/imgui/imgui_draw.cpp
+	src/imgui/imgui_orient.cpp
+	src/imgui/imgui_impl_glfw_gl2.cpp
+	src/imgui/imgui_impl_glfw_gl3.cpp
+	src/core/file_util.cpp
+	src/core/obj_mesh.cpp
+	src/gl/device_render.cpp
+	src/gl/device_rendering_context.cpp
+	src/gl/fbo.cpp
+	src/gl/glmodel.cpp
+	src/gl/renderer.cpp
+	src/gl/shader.cpp
+	src/gl/program_definitions.cpp
+	src/rt/texture.cpp
+	src/gl/prefilter_envmap.cpp
+	src/gl/scene_graph.cpp
+	src/gl/util.cpp
+)

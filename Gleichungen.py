@@ -1,0 +1,30 @@
+# ----------------------------------------------
+# Script Recorded by Ansys Electronics Desktop Version 2023.2.0
+# 14:20:42  Mai 23, 2024
+# ----------------------------------------------
+import ScriptEnv
+ScriptEnv.Initialize("Ansoft.ElectronicsDesktop")
+oDesktop.RestoreWindow()
+oProject = oDesktop.SetActiveProject("Workshop_A6")
+oDesign = oProject.SetActiveDesign("IPM_0")
+oModule = oDesign.GetModule("FieldsReporter")
+oModule.EnterQty("OhmicLoss")
+oModule.EnterSurf("A1")
+oModule.CalcOp("Integrate")
+oModule.EnterScalar(0.1)
+oModule.CalcOp("*")
+oModule.AddNamedExpression("A1_Eddy", "Fields")
+oModule = oDesign.GetModule("FieldsReporter")
+oModule.EnterQty("OhmicLoss")
+oModule.EnterSurf("A20")
+oModule.CalcOp("Integrate")
+oModule.EnterScalar(0.1)
+oModule.CalcOp("*")
+oModule.AddNamedExpression("A20_Eddy", "Fields")
+oModule = oDesign.GetModule("FieldsReporter")
+oModule.EnterQty("OhmicLoss")
+oModule.EnterSurf("Kupferwicklung")
+oModule.CalcOp("Integrate")
+oModule.EnterScalar(0.1)
+oModule.CalcOp("*")
+oModule.AddNamedExpression("Kupfer_Verluste", "Fields")

@@ -10,12 +10,44 @@ public final class GridUtility {
         throw new AssertionError("Utility class cannot be instantiated.");
     }
 
-    public static void bfs(task1.Grid grid) {
-        //TODO implement Breadth-First-Search
+    public static void bfs(Grid grid) {
+        Queue<Cell> queue = new LinkedList<>();
+
+        // Add the starting cell to the Queue
+        queue.add(grid.getStart());
+
+        // Continue while we are still searching for the goal
+        while (!queue.isEmpty()) {
+            Cell current = queue.poll();
+            // Skip already visited cells
+            if (current.isVisited()) {
+                continue;
+            }
+
+            // Mark the current cell as visited
+            current.visit();
+
+            // Check if the goal is reached
+            if (current.isGoal()) {
+                return;
+            }
+
+            // Add valid neighbors to the queue
+            for (Cell neighbour : getNeighbours(grid, current)) {
+                if (!neighbour.isVisited()) {
+                    queue.add(neighbour);
+                }
+            }
+
+            // Print the grid state after each step
+            System.out.println(grid);
+        }
+        // If the goal was not found
+        System.out.println("Goal not reachable.");
     }
 
 
-    private static Lsist<Cell> getNeighbours(Grid grid, Cell cell) {
+    private static List<Cell> getNeighbours(Grid grid, Cell cell) {
         List<Cell> neighbours = new ArrayList<>();
         int[] position = grid.getCellPosition(cell);
         int x = position[0];

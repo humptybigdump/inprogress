@@ -4,6 +4,9 @@ import java.util.Random;
 
 public class Grid {
 
+
+
+    // TODO Use those in BFS Class
     private static final String VISITED = "🟦";
 
 
@@ -12,9 +15,9 @@ public class Grid {
     private final Random random = new Random();
     private final Cell[][] grid = new Cell[GRID_SIZE][GRID_SIZE];
     private final Cell start;
-    private final task1.Cell goal;
+    private final Cell goal;
 
-    public Grid(task1.Cell start, task1.Cell goal) {
+    public Grid(Cell start, Cell goal) {
         // Set the start and goal
         this.start = start;
         this.goal = goal;
@@ -43,7 +46,7 @@ public class Grid {
         return grid[x][y];
     }
 
-    public int[] getCellPosition(task1.Cell cell) {
+    public int[] getCellPosition(Cell cell) {
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[i].length; j++) {
                 if (grid[i][j] == cell) {

@@ -1,7 +1,6 @@
 """
 % =========================================================================
-% deconvolution(x,yext,dt,theta,sigma,n_g,choice,submean,firstzero,
-%               zerobefore,nreal)
+% deconvolution(x,yext,dt,theta,sigma,n_g,choice,submean,firstzero,nreal)
 %
 % Non-negative deconvolution with geostatistical regularization
 % The data must be continuous with regular time spacing
@@ -16,7 +15,7 @@
 % x       input signal
 % yext    output signal (must have the same length as x)
 % dt      time increment [T]
-% theta   slope of the variogram [T^-3]
+% theta   slope of teh variogram [T^-3]
 % sigma   epistemic error
 % n_g     length of the transfer function
 % choice  string determining the method:
@@ -27,8 +26,6 @@
 % submean Boolean whether to subtract the means of the input and output signals
 %         (recommended for natural-tracer signals)
 % firstzero Boolean whether the first value of the transfer Funtion must be 0 
-% zerobefore Boolean whether the signals are zero before the measurements
-%            (this can be used for the deconvolution of artificial-tracer data)
 % nreal   number of realizations
 %
 % output:
@@ -52,16 +49,12 @@ import numpy as np
 # =============================================================================
 # Main Function to Estimate zero-Order Reaction Rate
 # =============================================================================
-def deconvolution(x,yext,dt,theta,sigma,n_g,choice,submean,firstzero,
-                  zerobefore,nreal=100):
+def deconvolution(x,yext,dt,theta,sigma,n_g,choice,submean,firstzero,nreal=100):
     import scipy.linalg as la
     from scipy.linalg import toeplitz
     
     # consider only part of the output signal where the response is complete
-    if zerobefore:
-       y = yext
-    else:
-       y = yext[(n_g-1):]
+    y = yext[(n_g-1):]
     
     if submean:
        ymean=np.mean(y)
@@ -69,12 +62,7 @@ def deconvolution(x,yext,dt,theta,sigma,n_g,choice,submean,firstzero,
        x -= np.mean(x)
 
     # construction of Jacobian
-    if zerobefore:
-       r = np.zeros(n_g)
-       r[0] = x[0]
-       J = dt*toeplitz(x,r)
-    else:
-       J =dt*toeplitz(x[n_g-1:],x[n_g-1::-1])
+    J =dt*toeplitz(x[n_g-1:],x[n_g-1::-1])
     
     # generalized covariance matrix of transfer function without theta
     G = toeplitz(np.arange(n_g*dt, 0, -dt))
@@ -303,7 +291,7 @@ def deconvolution(x,yext,dt,theta,sigma,n_g,choice,submean,firstzero,
             print('Method of Choice: Conditional Realizations - Estimate Variogram-Slope')
             print(f'Epistemic error: {sigma:.3g}')
         
-    print(f'Slope of variogram: {theta:.3g}')
+    print(f'Slope of variogram: {theta:.3g} d^-3')
     
     # propagate uncertainty of rate back to concentrations
     Cyy   = J @ Cgg @ J.T

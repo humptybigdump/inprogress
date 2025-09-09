@@ -1,0 +1,6 @@
+# main.py
+
+from math_operations import add
+
+result = add(3, 5)
+print(result)  # Output: 8

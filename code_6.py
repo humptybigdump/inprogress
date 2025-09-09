@@ -1,33 +1,36 @@
-import stats
-from scipy.stats import shapiro
+from sklearn.model_selection import GridSearchCV
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.model_selection import train_test_split
+import pandas as pd
 import numpy as np
+from sklearn.impute import KNNImputer
 
-# Generate sample data
-np.random.seed(42)
-data = np.random.normal(0, 1, 100)  # Normally distributed data
+data = {
+'WellID': [101, 102, 103, 104, 105],
+'Nitrate_mg_L': [3.5, np.nan, 2.0, None, 5.0],
+'Arsenic_mg_L': [0.01, 0.03, np.nan, 0.005, 0.02]
+}
+data = pd.DataFrame(data)
+imputer = KNNImputer(n_neighbors=2)
+#n_neighbors:Number of neighboring samples to use for imputation.
+data = pd.DataFrame(imputer.fit_transform(data))
+X = data.iloc[:,:-1]
+y = data.iloc[:,-1]
 
-# Shapiro-Wilk Test
-stat, p = shapiro(data)
-print(f"Shapiro-Wilk Test: p-value = {p:.5f}")
-###########################################
-##Variance Check
-# Example data
-data = {'group': ['A']*5 + ['B']*5 + ['C']*5,
-        'score': [5,7,8,6,9, 15,17,14,18,16, 25,27,29,26,28]}
-df = pd.DataFrame(data)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+# Define the model
+model = RandomForestRegressor()
 
-# Extracting numerical groups properly
-group_A = df[df['group'] == 'A']['score']
-group_B = df[df['group'] == 'B']['score']
-group_C = df[df['group'] == 'C']['score']
+# Define the hyperparameter grid
+param_grid = {
+    'n_estimators': [100, 200, 300],
+    'max_depth': [None, 10, 20],
+    'min_samples_split': [2, 5, 10]
+}
 
-# Perform Levene’s test
-stat, p_levene = stats.levene(group_A, group_B, group_C)
+# Perform Grid Search
+grid_search = GridSearchCV(model, param_grid, cv=2, n_jobs=-1)
+grid_search.fit(X_train, y_train)
 
-print(f"Levene’s Test: p-value = {p_levene:.5f}")
-
-# Check for equal variance
-if p_levene > 0.05:
-    print("Variances are equal (p > 0.05), Tukey HSD is appropriate.")
-else:
-    print("Variances are not equal (p < 0.05), consider Games-Howell test.")
+# Best parameters and score
+print("Best parameters:", grid_search.best_params_)

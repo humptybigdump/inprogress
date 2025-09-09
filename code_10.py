@@ -1,28 +1,20 @@
-import numpy as np
-from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
-
-# Example observed and predicted values
-y_true = np.array([3, -0.5, 2, 7])
-y_pred = np.array([2.5, 0.0, 2, 8])
-
-# Compute MAE, MSE, RMSE
-mae = mean_absolute_error(y_true, y_pred)
-mse = mean_squared_error(y_true, y_pred)
-rmse = np.sqrt(mse)
-r2 = r2_score(y_true, y_pred)
+from sklearn.model_selection import cross_val_score
+from sklearn.ensemble import RandomForestRegressor
+import pandas as pd
+from sklearn.model_selection import train_test_split
 
 
-# Compute NRMSE and RRMSE (using normalization)
-nrmse = rmse / (max(y_true)-min(y_true))
-rrmse = rmse / np.mean(y_true)
+Student_Performance = pd.read_excel("Student_Performance.xlsx")
+X = Student_Performance.iloc[:,:-1]
+# Convert 'Yes' to 1 and 'No' to 0 in the specified column
+X["Extracurricular Activities"] = X["Extracurricular Activities"].map({"Yes": 1, "No": 0})
+y= Student_Performance.iloc[:,-1]
 
-# Compute RPD (standard deviation of observed values)
-rpd = np.std(y_true) / rmse
+df_cleaned = X.dropna()
+y_cleaned = y.loc[df_cleaned.index]  # Keep only corresponding indices in y
+X_train_80, X_test_20, y_train_80, y_test_20 = train_test_split(df_cleaned, y_cleaned, test_size=0.2, random_state=42)
 
-print("MAE:", mae)
-print("MSE:", mse)
-print("RMSE:", rmse)
-print("R^2:", r2)
-print("NRMSE:", nrmse)
-print("RRMSE:", rrmse)
-print("RPD:", rpd)
+model = RandomForestRegressor()
+scores = cross_val_score(model, X_train_80, y_train_80, cv=5)  # 5-Fold Cross-Validation
+print("Cross-validation scores:", scores)
+print("Mean accuracy:", scores.mean())

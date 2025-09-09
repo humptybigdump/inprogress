@@ -1,45 +1,23 @@
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
-from scipy.stats import pearsonr, spearmanr
+from sklearn.impute import KNNImputer
 
-# Generate Data
-X = np.linspace(1, 10, 100)
-Y_monotonic = (X**7 + (2*X))/1000  # Monotonic but non-linear
-Y_non_monotonic = np.sin(X)  # Non-monotonic
+data = {
+'WellID': [101, 102, 103, 104, 105],
+'Nitrate_mg_L': [3.5, np.nan, 2.0, None, 5.0],
+'Arsenic_mg_L': [0.01, 0.03, np.nan, 0.005, 0.02]
+}
+data = pd.DataFrame(data)
+imputer = KNNImputer(n_neighbors=2)
+#n_neighbors:Number of neighboring samples to use for imputation.
+data = pd.DataFrame(imputer.fit_transform(data))
+X = data.iloc[:,:-1]
+y = data.iloc[:,-1]
 
-# Compute Correlations
-pearson_mono, _ = pearsonr(X, Y_monotonic)
-spearman_mono, _ = spearmanr(X, Y_monotonic)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-pearson_nonmono, _ = pearsonr(X, Y_non_monotonic)
-spearman_nonmono, _ = spearmanr(X, Y_non_monotonic)
-
-# Plot
-sns.set(style="whitegrid", context="talk")
-
-fig, axes = plt.subplots(1, 2, figsize=(14, 6))
-
-# Monotonic Plot
-sns.scatterplot(x=X, y=Y_monotonic, ax=axes[0], color='dodgerblue', label="Data")
-sns.lineplot(x=X, y=Y_monotonic, ax=axes[0], color='navy', alpha=0.7, label="Trend")
-axes[0].set_title("Monotonic Relationship: $Y = \\frac{(X^7 + {2X})}{1000}$", fontsize=14)
-axes[0].set_xlabel("X")
-axes[0].set_ylabel("Y")
-axes[0].text(2, Y_monotonic.max() * 0.5, f"Pearson: {pearson_mono:.2f}\nSpearman: {spearman_mono:.2f}", 
-             fontsize=12, bbox=dict(facecolor='white', alpha=0.7))
-
-# Non-Monotonic Plot
-sns.scatterplot(x=X, y=Y_non_monotonic, ax=axes[1], color='darkorange', label="Data")
-sns.lineplot(x=X, y=Y_non_monotonic, ax=axes[1], color='red', alpha=0.7, label="Trend")
-axes[1].set_title("Non-Monotonic Relationship: $Y = \sin(X)$", fontsize=14)
-axes[1].set_xlabel("X")
-axes[1].set_ylabel("Y")
-axes[1].text(2, 0.5, f"Pearson: {pearson_nonmono:.2f}\nSpearman: {spearman_nonmono:.2f}", 
-             fontsize=12, bbox=dict(facecolor='white', alpha=0.7))
-
-# Show the plot
-plt.tight_layout()
-plt.savefig("corr.pdf", dpi=600, bbox_inches='tight')
-
-plt.show()
+model = LinearRegression()
+model.fit(X_train, y_train)  # Training the model
+print(model)

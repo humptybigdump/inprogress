@@ -1,19 +1,15 @@
-import matplotlib.pyplot as plt
-import seaborn as sns
-# Histogram
-plt.figure(figsize=(8,5))
-sns.histplot(df["Magnitude"], bins=20, kde=True, color="blue")
-# Add vertical lines for mean and median
-plt.axvline(mean_value, color='red', linestyle='dashed', linewidth=2, label=f'Mean: {mean_value:.2f}')
-plt.axvline(median_value, color='green', linestyle='dashed', linewidth=2, label=f'Median: {median_value:.2f}')
-plt.title("Histogram of Feature")
-plt.legend()
+from sklearn.model_selection import train_test_split
+import pandas as pd
+import numpy as np
+data = {
+'WellID': [101, 102, 103, 104, 105],
+'Nitrate_mg_L': [3.5, np.nan, 2.0, None, 5.0],
+'Arsenic_mg_L': [0.01, 0.03, np.nan, 0.005, 0.02]
+}
+data = pd.DataFrame(data)
 
-plt.show()
-# Boxplot
-plt.figure(figsize=(6,4))
-outliers=np.copy(df["Magnitude"])
-outliers[0:10]=outliers[0:10]+10
-sns.boxplot(y=outliers, color="orange")
-plt.title("Boxplot of Feature")
-plt.show()
+X = data.iloc[:,:-1]
+y = data.iloc[:,-1]
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+

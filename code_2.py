@@ -1,2 +1,4 @@
-print(random.uniform(10, 20))  # Example: 14.67 (between 10 and 20)
-print(np.random.uniform(10, 20))  # NumPy version
+# Compute skewness and kurtosis
+skewness_value = df["Magnitude"].skew()
+kurtosis_value = df["Magnitude"].kurt()
+print(f'Skewness: {skewness_value:.2f}, Kurtosis: {kurtosis_value:.2f}')

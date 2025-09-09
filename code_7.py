@@ -1,3 +1,3 @@
-random.shuffle(fruits)  # Modifies the list in-place
-np.random.shuffle(fruits)  # NumPy version
-print(fruits)  # Example: ['orange', 'cherry', 'apple', 'banana']
+# Compute covariance matrix
+cov_matrix = df.cov()
+print("Covariance Matrix:\n", cov_matrix)

@@ -1,17 +1,28 @@
-# Sample dataset
-data = {
-    'WellID': [101, 102, 103, 104, 105],
-    'Depth_m': [50, 75, 80, 60, 55],
-    'pH': [7.2, 6.5, 8.0, 7.1, 7.5],
-    'Nitrate_mg_L': [3.5, 12.0, 2.0, 1.5, 10.0]
-}
+import numpy as np
+from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 
-df = pd.DataFrame(data)
+# Example observed and predicted values
+y_true = np.array([3, -0.5, 2, 7])
+y_pred = np.array([2.5, 0.0, 2, 8])
 
-# Filter rows where Nitrate is above 5 mg/L
-high_nitrate = df[df['Nitrate_mg_L'] > 5]
-print("High nitrate samples:\n", high_nitrate)
+# Compute MAE, MSE, RMSE
+mae = mean_absolute_error(y_true, y_pred)
+mse = mean_squared_error(y_true, y_pred)
+rmse = np.sqrt(mse)
+r2 = r2_score(y_true, y_pred)
 
-# Combine multiple conditions (e.g., Depth > 60 and pH < 7.3)
-filtered = df[(df['Depth_m'] > 60) & (df['pH'] < 7.3)]
-print("Filtered by depth and pH:\n", filtered)
+
+# Compute NRMSE and RRMSE (using normalization)
+nrmse = rmse / (max(y_true)-min(y_true))
+rrmse = rmse / np.mean(y_true)
+
+# Compute RPD (standard deviation of observed values)
+rpd = np.std(y_true) / rmse
+
+print("MAE:", mae)
+print("MSE:", mse)
+print("RMSE:", rmse)
+print("R^2:", r2)
+print("NRMSE:", nrmse)
+print("RRMSE:", rrmse)
+print("RPD:", rpd)

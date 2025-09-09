@@ -1,31 +1,14 @@
-import unittest
+import cartopy.crs as ccrs
+import cartopy.feature as cfeature
+import matplotlib.pyplot as plt
 
-# Example function to be tested
-def add(a, b):
-    return a + b
+fig = plt.figure(figsize=(8,6))
+ax = plt.axes(projection=ccrs.PlateCarree())
 
-def subtract(a, b):
-    return a - b
+# Add base features
+ax.add_feature(cfeature.COASTLINE, linewidth=1)
+ax.add_feature(cfeature.BORDERS, linestyle=':')
+ax.set_extent([-180, 180, -60, 90]) # Global view
 
-# Test case class derived from unittest.TestCase
-class TestMathOperations(unittest.TestCase):
-
-    # Test method to check the add function
-    def test_add(self):
-        self.assertEqual(add(3, 4), 7)  # This test should pass
-        self.assertEqual(add(-1, 1), 0)  # This test should pass
-        self.assertEqual(add(0, 0), 0)   # This test should pass
-
-        self.assertNotEqual(add(0, 0), 10)   # This test should pass
-
-    # Test method to check the subtract function
-    def test_subtract(self):
-        self.assertEqual(subtract(10, 5), 5)  # This test should pass
-        self.assertEqual(subtract(-1, -1), 0)  # This test should pass
-        self.assertEqual(subtract(0, 5), -5)   # This test should pass
-
-        self.assertNotEqual(subtract(0, 5), 0)   # This test should pass
-
-# Running the tests
-if __name__ == "__main__":
-    unittest.main()
+plt.title("Basic Global Map with Coastlines")
+plt.show()

@@ -1,9 +1,2 @@
-# Traditional for loop approach
-squares = []
-for x in range(10):
-    squares.append(x ** 2)
-
-# Equivalent list comprehension
-squares = [x ** 2 for x in range(10)]
-
-print(squares)  # Output: [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+print(random.randint(1, 100))  # Example: 42 (between 1 and 100, inclusive)
+print(np.random.randint(1, 100))  # NumPy version

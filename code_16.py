@@ -1,15 +1,22 @@
-import csv
+import seaborn as sns
+import matplotlib.pyplot as plt
+import pandas as pd
+import numpy as np
 
-# Writing structured data to a CSV file
-data = [
-    ["Sample", "Concentration (mg/L)"],
-    ["Site A", 2.5],
-    ["Site B", 1.8],
-    ["Site C", 3.2]
-]
+# Generate synthetic earthquake magnitude data
+np.random.seed(42)
+magnitude = np.random.normal(loc=5.0, scale=1.0, size=500)
+magnitude = np.clip(magnitude, 3.0, 7.5)  # Magnitudes between 3 and 7.5
+region = np.random.choice(['Pacific Rim', 'Himalayan Belt', 'Mid-Atlantic Ridge'], size=500)
 
-with open("output.csv", "w", newline="") as file:
-    writer = csv.writer(file)
-    writer.writerows(data)
+# Create DataFrame
+data = pd.DataFrame({'Magnitude': magnitude, 'Region': region})
 
-print("CSV file written successfully.")
+# Seaborn plot
+plt.figure(figsize=(10, 6))
+sns.histplot(data, x='Magnitude', hue='Region', element='step', kde=True, palette='coolwarm')
+plt.title('Earthquake Magnitude Distribution Across Different Seismic Regions')
+plt.xlabel('Magnitude (Richter scale)')
+plt.ylabel('Frequency')
+plt.show()
+

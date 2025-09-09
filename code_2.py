@@ -1,13 +1,2 @@
-def divide_numbers(a, b):
-    """Divides two numbers and handles division by zero errors."""
-    try:
-        result = a / b
-        return f"Result: {result}"
-    except ZeroDivisionError:
-        return "Error: Cannot divide by zero!"
-    except Exception as e:
-        return f"Unexpected error occurred: {e}"
-
-# Example Usage
-print(divide_numbers(10, 2))  # Output: Result: 5.0
-print(divide_numbers(5, 0))   # Output: Error: Cannot divide by zero!
+print(random.uniform(10, 20))  # Example: 14.67 (between 10 and 20)
+print(np.random.uniform(10, 20))  # NumPy version

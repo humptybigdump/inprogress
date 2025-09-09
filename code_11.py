@@ -1,3 +1,7 @@
-numbers = [1, 2, 3, 4]
-squared = list(map(lambda x: x**2, numbers))
-print(squared)  # Output: [1, 4, 9, 16]
+pattern = r"^water"
+text = "water samples were collected."
+match = re.match(pattern, text)
+if match:
+    print("Pattern found at the beginning:", match.group())
+else:
+    print("Pattern not found at the beginning.")

@@ -1,14 +1,12 @@
-# Basic decorator function
-def my_decorator(func):
-    def wrapper():
-        print("Something is happening before the function is called.")
-        func()
-        print("Something is happening after the function is called.")
-    return wrapper
+import json
 
-# Applying the decorator using @ syntax
-@my_decorator
-def say_hello():
-    print("Hello, World!")
+# Open the file.
+with open("data.json", "r") as f:
+    data = json.load(f)
 
-say_hello()
+# Print some properties.
+print(f"id: {data['id']}")
+print(f"name: {data['name']}")
+print(f"location: {data['location']}")
+print(f"population: {data['population']}")
+

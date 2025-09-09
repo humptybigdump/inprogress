@@ -1,15 +1,11 @@
-import datetime
+import json
 
-#   Logging decorator
-def log_function_call(func):
-    def wrapper(*args, **kwargs):
-        print(f"[{datetime.datetime.now()}] Function '{func.__name__}' was called")
-        return func(*args, **kwargs)
-    return wrapper
+# Create a new dictionary with some keys and values.
+data: dict = {"sample_id": 567, "name":"rock1", "mass [kg]":11.58}
 
-@log_function_call
-def greet(name):
-    print(f"Hello, {name}!")
+# Contert it into a JSON string.
+output: str = json.dumps(data)
 
-my_name= input("WHAT IS YOUR NAME?")
-greet(my_name)
+# Write the file.
+with open("output.json", "w") as f:
+    f.write(output)

@@ -71,12 +71,6 @@ function [ histogram ] = calculate_orientation_histogram (Gu, Gv)
 % for a given image region with partial derivatives Gu and Gv
 
 histogram = zeros(1, 8);
-Glen = sqrt(Gu.^2+Gv.^2);          % the gradient length for each pixel
-Gdir = atan2(Gv,Gu)*180/pi+180;    % the gradient direction in degree between 0° and 360° for each pixel
-Gbin = mod(floor((Gdir)/45),8)+1;  % the orientation sector to which each pixel belongs (mod is necessary to map angles of 360° to the first sector) 
-for v=1:size(Gu,1)
-    for u=1:size(Gu,2)
-        histogram(Gbin(v,u)) = histogram(Gbin(v,u)) + Glen(v,u);
-    end
-end
+% ------ Your code here ------
+% ----------------------------
 end

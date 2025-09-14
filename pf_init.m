@@ -8,9 +8,9 @@ function particles = pf_init (numParticles, init_s_cov)
 particles = zeros(numParticles, 3);
 
 % the initial weight of each particle:
-particles (:,1) = 1/numParticles;
+particles (:,1) = % ...
 % the state of each particle is drawn from a multivariate normal
 % distribution with mean (0, 0) ann covariance init_s_cov
-particles (:,2:3) = mvnrnd([0 0], init_s_cov, numParticles);
+particles (:,2:3) = % ...
 
 end

@@ -16,15 +16,12 @@ num_scales = 16;
 c = 1:num_scales;
 scales = power(2, (c-1)./ 3);  % create sequence of sigma/scale values
 
-% Initialize scale space L(v, u, sigma) with zeros. 
+% Initialize scale space L(u, v, sigma) with zeros. 
 L = zeros(height, width, num_scales);
 
 for i = 1:num_scales
-    scale = scales(i);
-    % create LoG filter with specified scale
-    LoG = fspecial('log', 2*round(scale*[5 5])+1, scale); % parameters hsize and sigma
-    % store the result in the array L
-    L(:,:,i) = scale^2 * imfilter(Idouble, LoG);
+    % ------ Your code here ------
+    % ----------------------------
 end
 
 % compute the local maxima in a 3-by-3-by-3 environment
@@ -103,8 +100,8 @@ function [ features_clean ] = threshold_features(threshold, values, features)
 %
 % This function removes those rows from features for which the respective
 % entry in values is below the specified threshold.
-idx_select = (values>=threshold);
-features_clean = features(idx_select,:);
+% ------ Your code here ------
+% ----------------------------
 end
 
 
@@ -115,26 +112,8 @@ function [ features_clean ] = eliminate_edge_features(r, L, features)
 % features. The edge check is based on the Hessian of the scale space
 % function L. r is a threshold. The larger r, the more interest points are
 % accepted.
-threshold = (r+1)^2 /r;  
-n = size(features,1);
 
-% iterate over all feature points, compute Tr²(H)/det(H), and 
-% save the result in the column vector crit
-crit = zeros(n,1);
-for i=1:n
-    v = features(i,1);
-    u = features(i,2);
-    c = features(i,3);
-    
-    dvv = L(v+1, u, c) - 2*L(v,u,c) + L(v-1, u, c);
-    duu = L(v, u+1, c) - 2*L(v,u,c) + L(v, u-1, c);
-    dvu = 1/4*(L(v+1, u+1, c) + L(v-1, u-1, c) - L(v+1, u-1, c) - L(v-1, u+1, c));
-    
-    crit(i) = (dvv + duu)^2 / (dvv*duu - dvu^2);
-    
-end
-
-idx_select = crit<threshold;
-features_clean = features(idx_select, :);
+% ------ Your code here ------
+% ----------------------------
 
 end

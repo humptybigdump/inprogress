@@ -53,12 +53,6 @@ STATISTICS = zeros(length(L),5);
 particles = pf_init (num_particles, field_geometry);
 t = L(1).time;
 for i=1:length(L)
-    if i == 1
-        t0 = tic();
-    elseif i == 30 * 5
-        processing_time_5s = toc(t0) - i*0.01
-    end
-
     % main loop, one cycle per measurement time step
     dt = L(i).time-t;  % determine the time passed since last cycle
     
@@ -105,13 +99,9 @@ end
 function [particles] = pf_predict (particles, delta_x, delta_y, delta_phi, sigma_x, sigma_y, sigma_phi)
 % function pf_predict implements the prediction step.
 % 'adds' translation and rotation to the robot pose and adds random noise
-for i=1:size(particles, 1)
-    cphi = cos(particles(i,4));
-    sphi = sin(particles(i,4));
-    particles(i,2) = particles(i,2)+cphi*delta_x-sphi*delta_y+normrnd(0,sigma_x);
-    particles(i,3) = particles(i,3)+sphi*delta_x+cphi*delta_y+normrnd(0,sigma_y);
-    particles(i,4) = mod(particles(i,4)+delta_phi+normrnd(0,sigma_phi),2*pi);
-end
+
+%%% add your code here!
+
 end
 
 
@@ -119,15 +109,8 @@ function [particles] = pf_innovate (particles, observations, sigma_observations,
 % function pf_innovate implements the innovation step.
 % reweights the particles depending on how well the observed points on
 % field markings fit to the model of the soccer field.
-for i=1:size(particles, 1)
-    cphi = cos(particles(i,4));
-    sphi = sin(particles(i,4));
-    for j=1:size(observations,1)
-        px = particles(i,2)+cphi*observations(j,1)-sphi*observations(j,2);
-        py = particles(i,3)+sphi*observations(j,1)+cphi*observations(j,2);
-        particles(i,1) = particles(i,1)*normpdf(mapdistance([px py], field_geometry),0,sigma_observations);
-    end
-end
+
+%%% add your code here!
 
 % normalize weights
 ws = sum(particles(:,1));

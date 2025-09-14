@@ -49,16 +49,12 @@ class Sequence:
     """
     def __init__(self, list_of_cards):
         if not list_of_cards:
-            # TODO: Durch das Werfen einer Exception ersetzen
-            print("Inconsistent sequence - empty!")
-            return
+            raise Exception("Inconsistent sequence - empty!")
 
         card = list_of_cards[0]
         for current_card in list_of_cards[1:]:
             if not current_card.fits_to(card):
-                # TODO: Durch das Werfen einer Exception ersetzen
-                print("Inconsistent sequence {}!".format("-".join(map(str, list_of_cards))))
-                return
+                raise Exception("Inconsistent sequence {}!".format("-".join(map(str, list_of_cards))))
             card = current_card
 
         self._cards = list_of_cards
@@ -82,9 +78,7 @@ class Sequence:
     def merge(self, other):
         "Kombiniert diese Sequenz mit einer anderen, indem die andere Sequenz angehaengt wird."
         if not other.fits_to(self):
-            # TODO: Durch das Werfen einer Exception ersetzen
-            print(f"Can't merge sequences {self} and {other}!")
-            return
+            raise UnsupportedMerge(f"Can't merge sequences {self} and {other}!")
 
         self._cards += other._cards
     
@@ -92,16 +86,23 @@ class Sequence:
         "Teilt diese Sequenz am gegebenen Index und liefert eine neue Sequenz mit den abgetrennten Karten."
         # wuerde eine leere Sequenz hinterlassen oder absplitten
         if not (0 < index < len(self._cards)):
-            # TODO: Durch das Werfen einer Exception ersetzen
-            print(f"Unsupported Split at index {index}")
-            return
-        
+            raise UnsupportedSplit(index == 0)
+
         splitted = Sequence(self._cards[index:])
         self._cards[:] = self._cards[:index]
         return splitted
-
-    # TODO: Hier kommt Ihr Code
-
+    
+    def __iter__(self):
+        """
+        Macht die Klasse Sequence iterierbar.
+        """
+        return iter(self._cards)
+        # alternativ:
+        #for card in self._cards:
+        #    yield card
+        # oder auch:
+        # yield from self._cards
+    
     def __str__(self):
         return "-".join(map(str, self._cards))
 
@@ -123,9 +124,7 @@ class Stack:
         "Liefert die letzte Sequenz in diesem Stapel"
         # Stapel darf nicht leer sein
         if self.is_empty():
-            # TODO: Durch das Werfen einer Exception ersetzen
-            print("Stack is empty!")
-            return
+            raise NoLastSequence("Stack is empty!")
 
         return self._sequences[-1]
     
@@ -137,9 +136,7 @@ class Stack:
         "Entfernt die letzte Sequenz dieses Stapels"
         # Stapel darf nicht leer sein
         if self.is_empty():
-            # TODO: Durch das Werfen einer Exception ersetzen
-            print("Stack is empty!")
-            return
+            raise NoLastSequence("Stack is empty!")
 
         self._sequences.pop()
         # alternativ
@@ -167,11 +164,10 @@ class Stack:
         """
         seq = Sequence([card])
 
-        # TODO: Dieser Code soll durch ein geeignetes try-except-Konstrukt ersetzt werden
-        if seq.fits_to(self.last_sequence()):
+        try: 
             self.last_sequence().merge(seq)
             self.test_fullsequence()
-        else:
+        except UnsupportedMerge:
             self.append_sequence(seq)
     
     @property
@@ -181,10 +177,17 @@ class Stack:
         """
         return len(self._facedown_cards)
     
-    # TODO: Hier kommt Ihr Code
+    def iter_faceup_cards(self):
+        """
+        Liefert einen Iterator ueber alle Karten dieses Stapels
+        """
+        for seq in self._sequences:
+            for card in seq:
+                yield card
 
     def __str__(self):
         return " ".join(self.num_facedown_cards *  [uni_cards['facedown']] + list(map(str, self._sequences)))
+       
 
 
 class SpiderSolitaire:
@@ -212,8 +215,15 @@ class SpiderSolitaire:
         self.moving_sequence = None
         # Woher kam die bewegte Sequenz
         self.origin_stack_index = None
-    
-    # TODO: Hier kommt Ihr Code
+
+    def iter_stacks(self):
+        """
+        Liefert einen Iterator ueber alle Stapel
+        """
+        return iter(self._stacks)
+
+    def get_stack(self, stack_index):
+        return self._stacks[stack_index]
 
     @property
     def num_cards2deal(self):
@@ -223,58 +233,45 @@ class SpiderSolitaire:
         return len(self._stack2deal)
 
     def deal(self):
-        """
+        """                                                                                         
         Teilt an jeden der 10 Stapel eine Karte aus.
         Vorher muss geprueft werden, ob es noch Karten zum austeilen gibt und auf jedem Stapel mindestens eine aufgedeckte Karte liegt.
         """
         if self.num_cards2deal == 0:
-            # TODO: Durch das Werfen einer Exception ersetzen
-            print("All cards have already been dealt")
-            return
+            raise SpiderSolitaireError("All cards have already been dealt.")
 
         empty_stacks = [i for i, stack in enumerate(self._stacks) if stack.is_empty()]
         if empty_stacks:
-            # TODO: Durch das Werfen einer Exception ersetzen
-            print("There must be at least one card at every stack!")
-            return
+            raise DealError(empty_stacks)
 
         for stack in self._stacks:
             stack.deal_card(self._stack2deal.pop())
-
+    
     def pick_up(self, stack_index, card_index):
         """
         'Aufheben' einer Sequenz
         """
         if self.moving_sequence is not None:
-            # TODO: Durch das Werfen einer Exception ersetzen
-            print("Already moving!")
-            return
+            raise SpiderSolitaireError("Already moving!")
         
         if not (0 <= stack_index < 10):
-            # TODO: Durch das Werfen einer Exception ersetzen
-            print("Wrong index for stack!")
-            return
+            raise SpiderSolitaireError("Wrong index for stack!")
         
         stack = self._stacks[stack_index]
-        
-        # -------------------------------------------------------------------------------------#
-        # TODO: Dieser Code soll durch ein geeignetes try-except-Konstrukt ersetzt werden
+
+        try:
+            self.moving_sequence = stack.last_sequence().split(card_index)
         # kann nicht von leerem Stapel aufheben
-        if stack.is_empty():
-            print("Stack is empty!")
-            return
-        
-        if card_index == 0:
-            self.moving_sequence = stack.last_sequence()
-            stack.remove_last_sequence()
-        else:
-            splitted = stack.last_sequence().split(card_index)
-            # card_index war nicht zulaessig
-            if splitted is None:
-                return
+        except NoLastSequence:
+            raise SpiderSolitaireError(f"Stack {stack_index} is empty!")
+        except UnsupportedSplit as e:
+            # wir heben die komplette Sequenz auf -> entferne Sequenz aus dem Stapel
+            if e.full_split:
+                self.moving_sequence = stack.last_sequence()
+                stack.remove_last_sequence()
+            # wir wuerden eine leere Sequenz aufheben
             else:
-                self.moving_sequence = splitted
-        # -------------------------------------------------------------------------------------#
+                raise SpiderSolitaireError("Wrong index for sequence!")
         
         self.origin_stack_index = stack_index
     
@@ -283,16 +280,12 @@ class SpiderSolitaire:
         if self.moving_sequence is not None:
             source_stack = self._stacks[self.origin_stack_index]
 
-            # -------------------------------------------------------------------------------------#
-            # TODO: Dieser Code soll durch ein geeignetes try-except-Konstrukt ersetzt werden
-            # Ursprungsstapel leer oder bewegende Sequenz passt nicht zum Ursprungsstapel -> append
-            if source_stack.is_empty() or not self.moving_sequence.fits_to(source_stack.last_sequence()):
-                source_stack.append_sequence(self.moving_sequence)
-            # Sequenz passt zum Urspringsstapel -> merge
-            else:
+            try:
                 source_stack.last_sequence().merge(self.moving_sequence)
-            # -------------------------------------------------------------------------------------#
-            
+            # Ursprungsstapel leer oder bewegende Sequenz passt nicht zum Ursprungsstapel -> append
+            except (NoLastSequence, UnsupportedMerge):  
+                source_stack.append_sequence(self.moving_sequence)
+
             # reset containers
             self.moving_sequence = None
             self.origin_stack_index = None
@@ -300,9 +293,7 @@ class SpiderSolitaire:
     def move(self, stack_index):
         "'Bewegen' einer (Teil-) Sequenz"
         if self.moving_sequence is None:
-            # TODO: Durch das Werfen einer Exception ersetzen
-            print("There is nothing to move. Call 'pick_up' first.")
-            return
+            raise SpiderSolitaireError("There is nothing to move. Call 'pick_up' first.")
         
         if stack_index is None or stack_index == self.origin_stack_index:
             self.abort_move()
@@ -310,9 +301,7 @@ class SpiderSolitaire:
         
         if not (0 <= stack_index < 10):
             self.abort_move()
-            # TODO: Durch das Werfen einer Exception ersetzen
-            print("Wrong index for stack")
-            return
+            raise SpiderSolitaireError("Wrong index for stack")
 
         target_stack = self._stacks[stack_index]
         source_stack = self._stacks[self.origin_stack_index]
@@ -329,100 +318,47 @@ class SpiderSolitaire:
         # Sequenz passt nicht -> Lege Sequenz zurueck auf den urspruenglichen Stapel
         else:
             self.abort_move()
-            # TODO: Durch das Werfen einer Exception ersetzen
-            print("Move not possible!")
-            return
+            raise SpiderSolitaireError("Move not possible!")
         
         # reset containers
         self.moving_sequence = None
         self.origin_stack_index = None
-
+    
     def is_won(self):
-        "Gibt True zurück, wenn das Spiel gewonnen wurde."
         return all(stack.is_empty() for stack in self._stacks)
-
-    def play(self):
-        "Die Spielschleife. Gibt True zurück, wenn das Spiel gewonnen wurde."
-        # Wir sind gerade dabei eine Sequenz zu bewegen
-        if self.moving_sequence is not None:
-            print("picked up: " + str(self.moving_sequence))
-            print("Options:")
-            print("k    move sequence to stack k")
-            print('"b"  move sequence back to original stack {}'.format(self.origin_stack_index))
-            
-            user_in = input("Input: ").strip().lower()
-            
-            # Zuruecklegen auf den ursprungsstapel (Abbruch)
-            if user_in == "b":
-                self.abort_move()
-                return
-            
-            try:
-                stack_index = int(user_in)
-            except ValueError:
-                print("Wrong input!")
-                return
-                
-            self.move(stack_index)
-            
-            # Gewinnabfrage
-            if self.is_won():
-                print("Congratulations, you won!")
-                return True
-        else:
-            print("Options:")
-            # es gibt noch Karten zum Austeilen
-            if self.num_cards2deal > 0:
-                print('"d"   deal (there are still {} cards to deal)'.format(self.num_cards2deal))                
-            print("k, n  pick up the last subsequence (part [n:]) of stack k")
-            print("k     pick up the last sequence of stack k")
-            user_in = input("Input: ").strip().lower()
-        
-            # Austeilen
-            if user_in == "d":
-                self.deal()
-                return
-
-            try:
-                splitted = user_in.split(",")
-                # nur Stacknummer eingegeben
-                if len(splitted) == 1:
-                    stack_index, card_index = int(splitted[0]), 0
-                # beides eingegeben
-                else:
-                    stack_index, card_index = map(int, splitted)
-            except ValueError:
-                print("Wrong input!")
-                return
-            
-            self.pick_up(stack_index, card_index)
 
     def __str__(self):
         res = [f"{i} {stack}" for i, stack in enumerate(self._stacks)]
         return "\n".join(res)
 
 
-# TODO: Hier kommt Ihr Code
+class UnsupportedMerge(Exception):
+    """
+    Exception, falls Sequenzen beim Mergen nicht zusammenpassen  
+    """
+    pass
 
 
-if __name__ == "__main__":
-    ss = SpiderSolitaire()
-
-    print("Teste 'SpiderSolitaire.iter_stacks()' and 'Stack.iter_faceup_cards()':")
-    for stack in ss.iter_stacks():
-        for card in stack.iter_faceup_cards():
-            print(card, end=" ")
-        print()
-
-    # zum Testen des 'DealError' koennen folgende Zeilen einkommentiert werden
-    #ss._stacks[0]._sequences = []
-    #ss._stacks[1]._sequences = []
+class NoLastSequence(Exception):
+    """
+    Exception, falls keine Sequenz am Stack vorhanden
+    """
+    pass
 
 
-    is_won = False
-    while not is_won:
-        print()
-        print(ss)
-        
-        # TODO: Hier kommt Ihr Code
-        is_won = ss.play()
+class UnsupportedSplit(Exception):
+    def __init__(self, full_split):
+        # full_split steht fuer einen split an index 0
+        self.full_split = full_split
+
+
+class SpiderSolitaireError(Exception):
+    """
+    Die Basisklasse fuer unsere (Status-) Exceptions
+    """
+    pass
+
+
+class DealError(SpiderSolitaireError):
+    def __init__(self, empty_stacks):
+        self.empty_stacks = empty_stacks

@@ -14,11 +14,4 @@ eval(gaitfindobj_callback('MI_Anzeige_ZR_Orig'));
 %% Zeitreihen,  Ansicht,  Mittelwertszeitreihen 
 eval(gaitfindobj_callback('MI_Anzeige_ZR_MW'));
 
-% ALLE 10
-eval(gaitfindobj_callback('CE_Alle_ZR'));
-
-%% FFT,  Ansicht,  FFT berechnen und anzeigen (ausgewählte Datentupel und Zeitreihen) 
-eval(gaitfindobj_callback('MI_FFT'));
-
-
 

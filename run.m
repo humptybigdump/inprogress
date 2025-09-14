@@ -1,0 +1,9 @@
+%load('attacker.mat');
+load('rwalk.mat');
+
+% arguments of rc_particle_filter:
+% num_particles, num_uniform, sigma_xy, sigma_yaw, sigma_observation, field_geometry
+rc_particle_filter(L, ...
+    100,30, ...
+    0.1,0.1,0.3, ...
+    field_geometry);

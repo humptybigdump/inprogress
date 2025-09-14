@@ -1,31 +1,46 @@
-import os
-
-# the name of the game
-GAME_NAME = "Gadakeco"
-screenSize = screenWidth, screenHeight = 1080, 720
-# the desired framerate
-FPS = 30
-MAX_DELTA = 1.5 / FPS
-# constant frametime for physic updates (Updates Per Second)
-UPS = 0.035
-# maximum number of physics updates per game loop iteration
-MAX_UPDATES = 10
-
-# distances for when entities should be "visible" (in multiples of screenWidth)
-staticUpdateDist = 1.5
-dynamicUpdateDist = 1.3
-
-_RES_LOC = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "res")) + os.path.sep
-
-
-def res_loc(subfolder=None):
-    if subfolder:
-        path = _RES_LOC + subfolder + os.path.sep
-    else:
-        path = _RES_LOC
-
-    # ensure the directory exists
-    if not os.path.exists(path):
-        os.makedirs(path)
-
-    return path
+# Loading and rigid body modes
+DISABLED = -9990
+ZERO = 9990
+UNI_X = 10
+UNI_Y = 20
+UNI_Z = 30
+BI_XY = 40
+BI_YZ = 50
+BI_ZX = 60
+TRI = 70
+BEND_XY = 100
+BEND_YX = 200
+BEND_YZ = 300
+BEND_ZY = 400
+BEND_ZX = 500
+BEND_XZ = 600
+SHEAR_XY = 1000
+SHEAR_YZ = 2000
+SHEAR_ZX = 3000
+SHEAR2_XY = 4000
+SHEAR2_YZ = 5000
+SHEAR2_ZX = 6000
+RANDOM = 9000
+CRAIG_BAMPTON_X = 9010
+CRAIG_BAMPTON_Y = 9020
+CRAIG_BAMPTON_Z = 9030
+POLY_UNI_X = 10000
+POLY_UNI_Y = 20000
+POLY_UNI_Z = 30000
+POLY_BI_XY = 40000
+POLY_BI_YZ = 50000
+POLY_BI_ZX = 60000
+POLY_TRI = 70000
+POLY_SHEAR_XY = 100000
+POLY_SHEAR_YZ = 200000
+POLY_SHEAR_ZX = 300000
+RIGID_X = -10
+RIGID_Y = -20
+RIGID_Z = -30
+RIGID_XY = -40
+RIGID_YZ = -50
+RIGID_ZX = -60
+RIGID_XYZ = -70
+RIGID_ROT_X = -80
+RIGID_ROT_Y = -90
+RIGID_ROT_Z = -100

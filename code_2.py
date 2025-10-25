@@ -1,4 +1,13 @@
-# Compute skewness and kurtosis
-skewness_value = df["Magnitude"].skew()
-kurtosis_value = df["Magnitude"].kurt()
-print(f'Skewness: {skewness_value:.2f}, Kurtosis: {kurtosis_value:.2f}')
+def divide_numbers(a, b):
+    """Divides two numbers and handles division by zero errors."""
+    try:
+        result = a / b
+        return f"Result: {result}"
+    except ZeroDivisionError:
+        return "Error: Cannot divide by zero!"
+    except Exception as e:
+        return f"Unexpected error occurred: {e}"
+
+# Example Usage
+print(divide_numbers(10, 2))  # Output: Result: 5.0
+print(divide_numbers(5, 0))   # Output: Error: Cannot divide by zero!

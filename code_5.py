@@ -1,15 +1,5 @@
-from sklearn.model_selection import train_test_split
-import pandas as pd
-import numpy as np
-data = {
-'WellID': [101, 102, 103, 104, 105],
-'Nitrate_mg_L': [3.5, np.nan, 2.0, None, 5.0],
-'Arsenic_mg_L': [0.01, 0.03, np.nan, 0.005, 0.02]
-}
-data = pd.DataFrame(data)
+# Convert a list of temperatures from Celsius to Fahrenheit
+celsius = [0, 10, 20, 30, 40]
+fahrenheit = [(temp * 9/5) + 32 for temp in celsius]
 
-X = data.iloc[:,:-1]
-y = data.iloc[:,-1]
-
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
+print(fahrenheit)  # Output: [32.0, 50.0, 68.0, 86.0, 104.0]

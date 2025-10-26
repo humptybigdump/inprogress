@@ -1,0 +1,163 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amstext,amsmath}
+\usepackage{parskip}
+\usepackage{setspace}
+\usepackage{lipsum}  
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{tcolorbox}
+\usepackage{csquotes}
+
+\usepackage[
+backend=biber,
+style=authoryear-comp,
+doi=false,isbn=false,url=false,eprint=false,maxcitenames=2,uniquename=false
+]{biblatex}
+
+\addbibresource{bibliography.bib} 
+
+\graphicspath{ {images/} }
+\onehalfspacing % setspace package allows for 1.5 spacing
+% etc. Here you can put all the packages that you will use/nee
+
+
+
+\author{Author Name}
+\date{\today} 
+
+\begin{document}
+These are my first words in LaTeX.
+
+% Table of contents (uncomment to use)
+% \tableofcontents
+
+\section{Sectioning}
+\subsection{Subsection}
+\subsubsection{Subsubsection}
+
+% Unnumbered sections
+\section*{Unnumbered Section}
+\subsection*{Unnumbered Subsection}
+\subsubsection*{Unnumbered Subsubsection}
+
+\section{Inputing Files}
+\input{sections/Introduction.tex}
+
+\section{Formatting}
+% --- Formatting: Font Size and Text Style ---
+\textbf{Bold text}, \textit{italic text}, \underline{underlined text}
+
+% Font sizes: \tiny, \scriptsize, \footnotesize, \small, \normalsize, \large, \Large, \LARGE, \huge, \Huge
+\begin{itemize}
+    \item \tiny tiny
+    \item \small small
+    \item \normalsize normal
+    \item \large large
+    \item \Large Large
+    \item \LARGE LARGE
+    \item \huge huge
+    \item \Huge Huge
+\end{itemize}
+
+% --- Line Breaks and Spacing ---
+First line.\\Second line.\vspace{2.5cm} More vertical space.
+
+% --- Lists ---
+\begin{itemize}
+    \item First item
+    \item Second item
+\end{itemize}
+
+\begin{enumerate}
+    \item First numbered item
+    \item Second numbered item
+\end{enumerate}
+
+\section{Mathematical Typesetting}
+% --- Mathematical Environments ---
+Inline: $x^2 + y^2 = z^2$
+
+Display (unnumbered):
+\[
+x = \frac{-b \pm \sqrt{b^2-4ac}}{2a}
+\]
+
+Display (numbered):
+\begin{equation}
+    \label{eq:example}
+y = mx + c
+\end{equation}
+
+Align (multiple lines):
+\begin{align}
+a &= b + c \\
+d &= e - f
+\end{align}
+
+% --- Tables ---
+\section{Tables}
+\label{sec:tables}
+Table \ref{tab:example} shows an example of a table.
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{lcc}
+        \hline
+        Variable & Mean & Std. Dev. \\
+        \hline
+        $x$ & 1.23 & 0.45 \\
+        $y$ & 2.34 & 0.67 \\
+        \hline
+    \end{tabular}
+    \caption{Example Table}
+    \label{tab:example}
+\end{table}
+
+
+\section{Figures}
+\label{sec:figures}
+% --- Figures ---
+% (Requires an image in the images/ directory)
+Figure \ref{fig:example} shows an example of a figure.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{logo_uni-2.pdf}
+    \caption{Example Figure}
+    \label{fig:example}
+\end{figure}
+
+% --- Code Listings ---
+% (Requires \usepackage{listings})
+% \begin{lstlisting}[language=Python, caption=Python example]
+% def hello_world():
+%     print("Hello, world!")
+% \end{lstlisting}
+
+\section{Cross-Referencing}
+% --- Cross-Referencing ---
+See Table~\ref{tab:example} in section~\ref{sec:tables} for an example table.
+See Figure~\ref{fig:example} in section~\ref{sec:figures} for an example figure.
+See equation~(\ref{eq:example}) for an example equation.
+
+\section{Citations}
+% --- Citations ---
+% (Requires biblatex and a .bib file)
+Lets cite our favorite paper \cite{ramey2016macroeconomic}. \\
+\cite{ramey2016macroeconomic} \\
+\textcite{ramey2016macroeconomic} \\
+\parencite{ramey2016macroeconomic}  \\
+\parencite[p. 23]{ramey2016macroeconomic}  \\
+\parencite[e.g.][]{ramey2016macroeconomic}  \\
+\citeauthor{ramey2016macroeconomic} \\
+\citeyear{ramey2016macroeconomic} \\
+
+% --- Bibliography ---
+\appendix
+\printbibliography
+
+
+\end{document}

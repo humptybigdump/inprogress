@@ -1,0 +1,184 @@
+% ==========================================================
+%  Problem Set 5  –  Exercise 1  •  Beamer presentation
+%  E383 – Monetary Policy Shocks in the UK
+%
+%  This template fulfils the tasks in PS5:
+%    1. Title page                      (slide: titlepage)
+%    2. Outline                         (slide: outline)
+%    3. Identification strategy         (formula + data + shocks plot)
+%    4. Dynamic causal effects          (LP formula + IRFs)
+%    5. Conclusion                      (slide: conclusion)
+%  Extra: bibliography frame.
+% ==========================================================
+
+\documentclass[aspectratio=169]{beamer}          % widescreen 16:9
+% \documentclass[notes=show]{beamer}              % uncomment to show notes
+
+% ---------- Packages ----------
+\usetheme[progressbar=frametitle,block=fill]{metropolis}   % modern theme
+\usepackage{appendixnumberbeamer}              % number frames correctly
+\usepackage{graphicx, subcaption}              % figures & subfigures
+\usepackage{svg, tikz}                         % vector graphics
+\usetikzlibrary{positioning}
+\usepackage{booktabs, threeparttable, multicol} % tables
+\usepackage{minted}                            % code listings (needs -shell-escape)
+\usepackage{hyperref, marvosym}                % hyperlinks, symbols
+\usepackage[english]{babel}                    % language/ hyphenation
+
+% % Uncomment one of the commands to use the University of Tübingen colorcode specified in the style (.sty) file
+% \usecolortheme{Tuebingen}
+% \input{beamercolorthemeTuebingen.sty}
+
+% ---------- Bibliography ----------
+\usepackage[
+  backend=biber,
+  style=authoryear-comp,
+  doi=false,isbn=false,url=false,eprint=false,
+  maxcitenames=2,uniquename=false
+]{biblatex}
+\addbibresource{bibliography.bib}
+\setbeamertemplate{bibliography item}{}        % small indent
+
+% ---------- Meta data ----------
+\title[PS5]{Problem Set 5}
+\subtitle{Effects of Monetary Policy in the UK}
+\author[Yannik Winkelmann]{Yannik Winkelmann \\ University of Tübingen}
+\date{E383 – SoSe 2025}
+
+% ==========================================================
+\begin{document}
+
+% ---------- Title slide ----------
+\maketitle
+
+% ---------- Outline ----------
+\begin{frame}{Outline}
+  \tableofcontents  % auto-populated from \section commands below
+\end{frame}
+
+% ==========================================================
+\section{Identification Strategy}
+
+% ---------- Identification procedure summary ----------
+\begin{frame}{Identification strategy by \textcite{cloyneMacroeconomicEffectsMonetary2016}}
+\textcite{cloyneMacroeconomicEffectsMonetary2016} need to tackle the following issues in the identification of monetary policy shocks:
+\begin{enumerate}
+    \item Simultaneity of monetary policy instruments, interest rates and other macroeconomic variables.
+    \item The Bank of England (BoE) builds their decision on a large information set that contains past and expected future economic conditions.
+    \item The decisions are based on real-time data and not ex-post data.
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Identification strategy by \textcite{cloyneMacroeconomicEffectsMonetary2016}}
+How they tackle these issues:
+\begin{enumerate}
+    \item They utilize the BoE's policy rate - the Bank Rate - as the indented policy target (In contrast \textcite{romer2004new} need to construct the target federal funds rate from minutes of the FOMC meetings). 
+    \item They proxy the BoE's information set by constructing an extensive new dataset of historical Bank of England forecasts, private sector forecasts, and real-time data.
+    \item The purge this target series of discretionary policy changes that were responding to the changes in macroeconomic variables within the policymakers’ information set.
+    
+\end{enumerate}
+\end{frame}
+
+
+% ---------- Regression formula ----------
+\begin{frame}{Identification strategy – regression}
+\textcite{cloyneMacroeconomicEffectsMonetary2016} identify UK monetary-policy shocks as the residual $\varepsilon_m$ from the following regression:
+\begin{align}
+  \Delta i_m ={}& \alpha  
+  + \beta i_{m-d14}
+  + \sum_{j=-1}^{2} \gamma_j \hat{y}_{m,j}^{F}
+  + \sum_{j=-1}^{2} \varphi_j \hat{\pi}_{m,j}^{F} \notag\\
+  &+ \delta \bigl(\hat{y}_{m,j}^{F}-\hat{y}_{m-1,j}^{F}\bigr)
+  + \delta \bigl(\hat{\pi}_{m,j}^{F}-\hat{\pi}_{m-1,j}^{F}\bigr)
+  + \sum_{j=1}^{3} \rho_j u_{m-j} + \varepsilon_m,  \label{eq:identification}
+\end{align}
+where the subscript $m$ descries the measurement at meeting-by-meeting frequency, the subscript $j$ denotes the quarter of the forecast relative to the meeting date and the superscript $F$ indicates that the variables are forecasts.
+\end{frame}
+
+% ---------- Regression results ----------
+\begin{frame}{LaTeX tables with statsmodels}
+    \inputminted{python}{latex_table.py}
+\end{frame}
+
+\begin{frame}{Regression results}
+
+        \begin{table}[]
+            \begin{center}
+            \caption{Dependent variable: Change in policy target around the policy decision (FDBRD14)}
+            \begin{tabular}{lcccc}
+        \toprule \hline
+        & \textbf{Estimate} & \textbf{std err} & \textbf{t} & \textbf{P$> |$t$|$}  \\
+        \midrule
+        \textbf{Intercept}  &      -0.1772  &        0.279     &    -0.634  &         0.526         \\
+        $i_{m-d14}$    &      -0.0021  &        0.026     &    -0.081  &         0.935        \\
+        $\hat{y}_{m,0}^F$    &       0.0726  &        0.041     &     1.767  &         0.079        \\
+        $\hat{y}_{m,1}^F$    &       0.0495  &        0.047     &     1.043  &         0.298      \\
+        ... & & & &  \\
+        % \bottomrule
+        \end{tabular}
+            \begin{tabular}{lclc}
+            \toprule
+            \textbf{No. Observations:} & 235 & \textbf{  R-squared:         } & 0.291 \\
+            \textbf{  F-statistic:       } & 4.399 & \textbf{  Prob (F-statistic):} &  1.42e-08  \\
+            \bottomrule
+            \end{tabular}
+            \end{center}
+
+        \end{table}    
+\end{frame}
+
+\begin{frame}{Shocks}
+    \begin{figure}
+        \centering
+        \includegraphics[scale=0.5]{figs/shocks.png}
+        \caption{Series of monthly monetary policy shocks in the UK from 1975:03 - 2007:05. The shocks are given as the residuals from estimating (\ref{eq:identification}).}
+        \label{fig:shocks}
+    \end{figure}
+\end{frame}
+
+% ==========================================================
+\section{Dynamic Causal Effects}
+
+% ---------- Local Projection formula ----------
+\begin{frame}{Local-projection regression}
+Following \textcite{jorda2005estimation}, the dynamic effect of a one-off shock is estimated using the following LP
+\begin{equation}
+  y_{t+h}-y_t \;=\; \alpha_h + \theta_h \,\textit{shock}_t 
+                   + \beta_h^{\prime}\mathbf X_{t-1} + \varepsilon_{t+h},
+  \label{eq:LP}
+\end{equation}
+where $\text{shock}$ is the monetary policy shock from ($\ref{eq:identification}$), $\mathbf X_{t-1}$ stacks \emph{four lags} of industrial production, CPI, commodity price index and 48 lags of the shocks.
+\end{frame}
+
+% ---------- IRF plots ----------
+\begin{frame}{Impulse Response Functions}
+    \begin{figure}
+        \centering
+        \includegraphics[scale=0.225]{figs/IRFs.png}
+        \caption{\small Impuse respones given a 1\% contractionary monetary policy shock as estimated by (\ref{eq:LP}). Confidence bands indicate the 90 percent interval with standard errors are adjusted for serial correlation. \normalsize}
+        \label{fig:IRFsl}
+    \end{figure}
+\end{frame}
+
+
+% ==========================================================
+\section{Conclusion}
+
+\begin{frame}{Conclusion}
+\begin{itemize}
+  \item Narrative identification à la \textcite{cloyneMacroeconomicEffectsMonetary2016}
+        isolates unexpected changes in the UK policy rate.
+  \item Local projections reveal:
+        \begin{itemize}
+            \item Economy slows down following the unexpected increase in the policy rate.
+            \item CPI declines significantly only after $\sim$30 months.
+        \end{itemize}
+\end{itemize}
+\end{frame}
+
+% ==========================================================
+\begin{frame}[allowframebreaks]{References}
+  \printbibliography[heading=none]
+\end{frame}
+
+\end{document}

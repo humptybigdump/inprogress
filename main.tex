@@ -1,111 +1,121 @@
-\documentclass[12pt]{article}
-\usepackage{graphicx}
+\documentclass{article}
 \usepackage{amsmath}
-\usepackage[hidelinks]{hyperref}
-\usepackage{enumitem}
-\usepackage{tocloft}
-
-\usepackage{geometry}
-\geometry{a4paper, margin=1in}
-
-
-% Page style and numbering
-\usepackage{fancyhdr}
-\pagestyle{fancy}
-\fancyhf{}
-\renewcommand{\headrulewidth}{0.4pt}
-\fancyhead[L]{\textit{Practical: AI for climate and weather predictions}}
-\fancyhead[R]{\thepage} % Add page number to the right-hand side of the header
-\fancyfoot{}
-
-%% code adapted from proseminar organized by Prof. Dr. Pascal Friederich
-
-%% --------------------------------
-%% | Bibliography                 |
-%% --------------------------------
-
-%% Use biber instead of BibTeX
-\usepackage[
-    citestyle=numeric,
-    backend=biber,
-    style=numeric,
-    url=false, 
-    doi=true,
-]{biblatex}
-\addbibresource{bibliography.bib}
-\setlength{\bibitemsep}{0.5\baselineskip}
-
-%% Package for the tables
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{listings}
 \usepackage{booktabs}
-%%
+\usepackage{threeparttable}
+\usepackage[
+backend=biber,
+style=authoryear-comp,
+doi=false,isbn=false,url=false,eprint=false,maxcitenames=2,uniquename=false
+]{biblatex}
+%\setbeamertemplate{bibliography item}{\insertbiblabel}
+\addbibresource{bibliography.bib}
 
-% align for equations
-\usepackage{amsfonts}
-\usepackage{mathtools}
-
-
-% Configure table of contents
-\renewcommand{\cftsecafterpnum}{\hfill} % Align section page numbers to the right
-\renewcommand{\cftsubsecleader}{\cftdotfill{\cftdotsep}} % Add dots for subsections
-
-
-% Code blocks for Python
-\usepackage{xcolor} % For defining colors
-\usepackage{listings} % For code formatting
-\definecolor{codegreen}{rgb}{0,0.6,0}
-\definecolor{codegray}{rgb}{0.5,0.5,0.5}
-\definecolor{codepurple}{rgb}{0.58,0,0.82}
-\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
-\definecolor{codeblue}{rgb}{0.1, 0.3, 0.7}
-
-\lstdefinestyle{CustomPython}{
-    backgroundcolor=\color{backcolour},
-    commentstyle=\color{codegreen},
-    keywordstyle=\color{codeblue},
-    stringstyle=\color{codepurple},
-    numberstyle=\tiny\color{codegray},
-    basicstyle=\footnotesize\ttfamily,
-    breaklines=true,
-    numbers=left,
-    numbersep=5pt,
-    showspaces=false,
-    showstringspaces=false,
-    showtabs=false,
-    tabsize=2,
-    frame=single, % Adds a border around code blocks
-    framerule=0.5pt, % Border thickness
-    rulecolor=\color{gray}, % Border color
-    captionpos=b % Set caption position to bottom
-}
-
-
-\lstset{style=CustomPython}
-
-
-%% ====================================
-%% ====================================
-%% ||                                ||
-%% || Beginning of the main document ||
-%% ||                                ||
-%% ====================================
-%% ====================================
+\title{Benefits of Using \LaTeX\ for Academic Writing}
+\author{E383}
+\date{\today}
 
 \begin{document}
 
-\input{titlepage}
-\thispagestyle{empty} % Suppress page number on title page
+\maketitle
 
-\newpage
-\setcounter{page}{1} % Start Roman numerals from the Abstract page
-\pagenumbering{Roman} % Roman numerals in capital letters for prefatory pages
-
-\input{abstract}
-
-\newpage
 \tableofcontents
 
-\newpage
-\pagenumbering{arabic} % Switch to Arabic numerals for main content
-\input{contents}
+\section{Introduction}
+
+\LaTeX\ is a typesetting system commonly used for academic and scientific documents. It offers numerous benefits over traditional word processors, particularly for technical and academic writing.
+
+\section{High-Quality Typesetting}
+
+\LaTeX\ produces documents with professional, high-quality typesetting. It excels in handling complex formatting, including mathematical equations, tables, and bibliographies. 
+
+\subsection{Mathematical Typesetting}
+
+One of the standout features of \LaTeX\ is its ability to render complex mathematical equations beautifully. For example:
+
+\begin{equation}
+\label{eq:taylor}
+f(x) \approx f(a) + f'(a)(x - a) + \frac{f''(a)}{2}(x - a)^2
+\end{equation}
+
+\begin{equation}
+    y_{it}
+\end{equation}
+
+\subsection{Consistent Formatting}
+
+\LaTeX\ uses a consistent approach to document formatting, ensuring that all elements such as headings, paragraphs, and references maintain a uniform style throughout the document. This is particularly useful for large documents like theses and dissertations.
+
+\section{Automated Citation and Bibliography Management}
+
+\LaTeX\ integrates well with BibTeX and other bibliography management tools, making it easy to handle citations and references. For example:
+\textcite{wooldridgeIntroductoryEconometricsModern2016}
+
+\section{Cross-Referencing}
+
+Cross-referencing figures, tables, and sections is straightforward in \LaTeX. This makes it easy to create and manage complex documents. For instance, see Figure~\ref{fig:example}.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{example-image}
+    \caption{An example image.}
+    \label{fig:example}
+\end{figure}
+
+It is then easy to reference back to figure \ref{fig:example} or equation (\ref{eq:taylor}).
+
+\input{sections/scalability}
+
+\section{Tables and Figures}
+
+Creating       complex tables and inserting figures is \\ straightforward in \LaTeX. Below is an example table created using \LaTeX.
+
+\begin{table}[ht]
+\centering
+\caption{An Example Table}
+\begin{threeparttable}
+\begin{tabular}{lcc}
+\hline
+ & Coefficient & Standard error \\
+\hline
+           Constant & 0.171 & 0.141 \\
+Initial level of intended funds rate & -0.021 & 0.012 \\
+\hline
+\end{tabular}
+\begin{tablenotes}
+\item \textit{Notes:} This is an example of a table created using \LaTeX.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\section{Code Listings}
+
+\LaTeX\ supports including code listings with syntax highlighting, which is useful for computer science and engineering documents. Here is an example:
+
+\begin{lstlisting}[language=Python, caption=Python example]
+def hello_world():
+    print("Hello, world!")
+\end{lstlisting}
+
+\section{Conclusion}
+
+In summary, \LaTeX\ offers numerous benefits for academic writing, including high-quality typesetting, automated citation management, and support for complex documents. Its stability, platform independence, and customization options make it an excellent choice for researchers and academics.
+
+
+\begin{enumerate}
+    \item Bullet 1 \\
+    Bullet 1.2
+    \item Bullet 2
+\end{enumerate}
+
+\begin{equation}
+    \frac{a}{b}
+\end{equation}
+
+in my text i want $\frac{a}{b}$
+
+\printbibliography
 
 \end{document}
